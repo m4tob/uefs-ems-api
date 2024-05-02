@@ -2,13 +2,17 @@ import { DeleteResult, UpdateResult, ObjectLiteral, Repository, SelectQueryBuild
 
 class Relation {
   field: string
+  alias?: string
   condition?: string
   join?: string
 }
 
 export abstract class DatabaseRepository<MODEL_TYPE extends ObjectLiteral, ID_TYPE> {
-  constructor(protected repository: Repository<MODEL_TYPE>, protected table: string) {
-  }
+  constructor(
+    protected repository: Repository<MODEL_TYPE>,
+    protected table: string,
+    protected defaultRelations: (Relation | string)[] = []
+  ) { }
 
   async save (model: MODEL_TYPE): Promise<MODEL_TYPE> {
     return this.repository.save(model)
@@ -18,16 +22,18 @@ export abstract class DatabaseRepository<MODEL_TYPE extends ObjectLiteral, ID_TY
     return this.repository.save(models)
   }
 
-  private addRelations = (query: SelectQueryBuilder<MODEL_TYPE>, relations?: (Relation |string)[]) => {
-    if (!relations?.length) return
+  private addRelations = (query: SelectQueryBuilder<MODEL_TYPE>, relations?: (Relation | string)[]) => {
+    const _relations = [...this.defaultRelations, ...(relations || [])]
 
-    relations.forEach(relation => {
+    if (!_relations?.length) return
+
+    _relations.forEach(relation => {
       if (typeof relation === 'string') {
         query.leftJoinAndSelect(`${this.table}.${relation}`, relation)
         return
       }
       
-      const alias = relation.field.split('.').pop() || relation.field
+      const alias = relation.alias || relation.field.split('.').pop() || relation.field
       if (relation.join === 'inner') {
         query.innerJoinAndSelect(`${relation.field}`, alias, relation.condition)
       } else {

@@ -10,7 +10,7 @@ export class ListTiposEmergenciaUseCase {
   ) { }
 
   async execute(): Promise<TipoEmergenciaResponse[]> {
-    const models = await this.tipoEmergenciaRepository.findAll(['grandezas'])
+    const models = await this.tipoEmergenciaRepository.findAll()
 
     return models.map(model => TipoEmergenciaResponse.toResponse(model))
   }

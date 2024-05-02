@@ -19,13 +19,13 @@ export class GrandezaResponse {
   @IsOptional()
   @IsString()
   @MaxLength(50)
-  @ApiProperty({ description: 'Unidade de Medida da Grandeza', maxLength: 50, example: 'Celsius' })
+  @ApiProperty({ description: 'Unidade de Medida da Grandeza', required: false, maxLength: 50, example: 'Celsius' })
   unidadeMedida?: string
 
   @IsOptional()
   @IsString()
   @MaxLength(20)
-  @ApiProperty({ description: 'Sigla da Grandeza', maxLength: 20, example: '°C' })
+  @ApiProperty({ description: 'Sigla da Grandeza', required: false, maxLength: 20, example: '°C' })
   sigla?: string
 
   static toResponse(model: GrandezaModel): GrandezaResponse {

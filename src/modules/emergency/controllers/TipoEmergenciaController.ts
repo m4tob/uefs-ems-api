@@ -20,6 +20,7 @@ export class TipoEmergenciaController {
 
   @Get('/:id')
   @ApiOperation({ summary: 'Busca um Tipo de Emergência pelo seu ID' })
+  @ApiParam({ name: 'id', description: 'Identificador do Tipo de Emergência', type: Number, example: 1 })
   @ApiOkResponse({ type: TipoEmergenciaResponse })
   @ApiNotFoundResponse({ description: 'Tipo de Emergência não encontrado' })
   findById(
@@ -50,7 +51,7 @@ export class TipoEmergenciaController {
   }
 
   @Delete('/:id')
-  @ApiOperation({ summary: 'Remove um Tipo de Emergência' })
+  @ApiOperation({ summary: 'Deleta um Tipo de Emergência' })
   @ApiParam({ name: 'id', description: 'Identificador do Tipo de Emergência', type: Number, example: 1 })
   @ApiOkResponse()
   @ApiNotFoundResponse({ description: 'Tipo de Emergência não encontrado' })

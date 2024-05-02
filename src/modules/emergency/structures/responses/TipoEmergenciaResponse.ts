@@ -21,8 +21,7 @@ export class TipoEmergenciaResponse {
   @IsArray()
   @ApiProperty({
     description: 'Lista das Grandezas associadas ao Tipo de Emergência',
-    type: [GrandezaResponse],
-    example: [{ id: 1, nome: 'Temperatura' }]
+    type: [GrandezaResponse]
   })
   grandezas: GrandezaResponse[]
 
@@ -30,7 +29,7 @@ export class TipoEmergenciaResponse {
     return {
       id: model.id,
       nome: model.nome,
-      grandezas: model.grandezas?.map((grandeza) => GrandezaResponse.toResponse(grandeza)),
+      grandezas: (model.grandezas || []).map((grandeza) => GrandezaResponse.toResponse(grandeza)),
     }
   }
 }

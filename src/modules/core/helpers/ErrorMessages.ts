@@ -15,5 +15,10 @@ export class ErrorMessages {
       static get notFound() { return 'Tipo de Emergência não encontrado.' }
       static alreadyExists(nome: string) { return `Tipo de Emergência '${nome}' já cadastrada.` }
     }
+
+    static sensor = class {
+      static get notFound() { return 'Sensor não encontrado.' }
+      static alreadyExists(nome: string) { return `Sensor '${nome}' já cadastrado.` }
+    }
   }
 }

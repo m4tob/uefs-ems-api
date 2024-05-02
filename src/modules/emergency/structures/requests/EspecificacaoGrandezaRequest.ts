@@ -1,0 +1,34 @@
+import { TipoSinalEnum } from "@/emergency/structures/enum/TipoSinalEnum"
+import { GrandezaIdRequest } from "@/emergency/structures/requests/GrandezaIdRequest"
+import { ApiProperty } from "@nestjs/swagger"
+import { IsEnum, IsNumber, IsOptional } from "class-validator"
+
+export class EspecificacaoGrandezaRequest {
+  @IsOptional()
+  @IsNumber()
+  @ApiProperty({ description: 'Identificador da Especificação de Grandeza', example: 1 })
+  id?: number
+
+  @IsOptional()
+  @ApiProperty({
+    description: 'Especificação de Grandeza',
+    type: GrandezaIdRequest,
+    required: false,
+  })
+  grandeza: GrandezaIdRequest
+
+  @IsOptional()
+  @IsNumber({ allowNaN: false, maxDecimalPlaces: 3 })
+  @ApiProperty({ description: 'Valor Mínimo', required: false, example: 0.0 })
+  valorMinimo?: number
+
+  @IsOptional()
+  @IsNumber({ allowNaN: false, maxDecimalPlaces: 3 })
+  @ApiProperty({ description: 'Valor Máximo', required: false, example: 100.0 })
+  valorMaximo?: number
+
+  @IsOptional()
+  @IsEnum(TipoSinalEnum)
+  @ApiProperty({ description: 'Tipo de Sinal', enum: TipoSinalEnum, required: false, example: 'DIGITAL' })
+  sinal?: TipoSinalEnum
+}

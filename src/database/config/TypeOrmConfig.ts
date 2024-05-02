@@ -1,8 +1,10 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm'
 
-import { AccountModel } from '@/account/models/AccountModel'
 import { Environment as envs } from '@/Environment'
+import { AccountModel } from '@/account/models/AccountModel'
+import { EspecificacaoGrandezaModel } from '@/emergency/models/EspecificacaoGrandezaModel'
 import { GrandezaModel } from '@/emergency/models/GrandezaModel'
+import { SensorModel } from '@/emergency/models/SensorModel'
 import { TipoEmergenciaModel } from '@/emergency/models/TipoEmergenciaModel'
 
 export default {
@@ -25,6 +27,8 @@ export default {
     // Emergency Module
     GrandezaModel,
     TipoEmergenciaModel,
+    SensorModel,
+    EspecificacaoGrandezaModel,
   ],
   bigNumberStrings: false,
   timezone: '+00:00',

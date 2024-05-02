@@ -2,7 +2,7 @@ import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm'
 
 import { SoftDeleteBaseModel } from '@/core/models/SoftDeleteBaseModel'
 
-@Entity('Account')
+@Entity('account')
 export class AccountModel extends SoftDeleteBaseModel {
   constructor (params?: Partial<AccountModel>) {
     super()

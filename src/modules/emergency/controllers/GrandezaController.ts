@@ -20,6 +20,7 @@ export class GrandezaController {
 
   @Get('/:id')
   @ApiOperation({ summary: 'Busca uma Grandeza pelo seu ID' })
+  @ApiParam({ name: 'id', description: 'Identificador da Grandeza', type: Number, example: 1 })
   @ApiOkResponse({ type: GrandezaResponse })
   @ApiNotFoundResponse({ description: 'Grandeza não encontrada' })
   findById(
@@ -50,7 +51,7 @@ export class GrandezaController {
   }
 
   @Delete('/:id')
-  @ApiOperation({ summary: 'Remove uma Grandeza' })
+  @ApiOperation({ summary: 'Deleta uma Grandeza' })
   @ApiParam({ name: 'id', description: 'Identificador da Grandeza', type: Number, example: 1 })
   @ApiOkResponse()
   @ApiNotFoundResponse({ description: 'Grandeza não encontrada' })
