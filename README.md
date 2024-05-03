@@ -1,11 +1,11 @@
 # Emergency Management System
-![typescript](https://shields.io/badge/TypeScript-3178C6?logo=TypeScript&logoColor=FFF&style=flat-square)
 ![Node 20.12](https://shields.io/badge/Node-20.12.2-339933?logo=Node.js&logoColor=FFF&style=flat-square)
-![nestjs](https://shields.io/badge/NestJS-E0234E?logo=NestJS&logoColor=FFF&style=flat-square)
 ![mysql](https://shields.io/badge/MySQL-4479A1?logo=MySQL&logoColor=FFF&style=flat-square)
+![typescript](https://shields.io/badge/TypeScript-3178C6?logo=TypeScript&logoColor=FFF&style=flat-square)
+![nestjs](https://shields.io/badge/NestJS-E0234E?logo=NestJS&logoColor=FFF&style=flat-square)
 ![docker](https://shields.io/badge/Docker-2496ED?logo=Docker&logoColor=FFF&style=flat-square)
-![swagger](https://shields.io/badge/Swagger-85EA2D?logo=Swagger&logoColor=FFF&style=flat-square)
 ![make](https://shields.io/badge/Make-00CC00?logo=Make&logoColor=FFF&style=flat-square)
+![swagger](https://shields.io/badge/Swagger-85EA2D?logo=Swagger&logoColor=FFF&style=flat-square)
 ![typeorm](https://shields.io/badge/TypeORM-F37626?logo=TypeORM&logoColor=FFF&style=flat-square)
 
 This project involves the development of an API for an Emergency Management System, proposed as a product for the discipline Computing Systems in Postgraduate Program in Computer Science at the State University of Feira de Santana - UEFS.
