@@ -20,5 +20,15 @@ export class ErrorMessages {
       static get notFound() { return 'Sensor não encontrado.' }
       static alreadyExists(nome: string) { return `Sensor '${nome}' já cadastrado.` }
     }
+
+    static zona = class {
+      static get notFound() { return 'Zona não encontrada.' }
+      static alreadyExists(nome: string) { return `Zona '${nome}' já cadastrada.` }
+    }
+
+    static ude = class {
+      static get notFound() { return 'UDE não encontrada.' }
+      static alreadyExists(nome: string) { return `UDE '${nome}' já cadastrada.` }
+    }
   }
 }

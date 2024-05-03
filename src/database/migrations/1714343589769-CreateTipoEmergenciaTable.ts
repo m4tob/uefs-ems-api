@@ -8,11 +8,12 @@ export class CreateTipoEmergenciaTable1714343589769 implements MigrationInterfac
       'CREATE TABLE `tipo_emergencia` (' +
       '  `id` int NOT NULL AUTO_INCREMENT, ' +
       '  `nome` varchar(50) NOT NULL, ' +
-      '  `createdAt` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), ' +
-      '  `updatedAt` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6), ' +
-      '  `deletedAt` datetime(6) NULL, ' +
 
-      '  INDEX `IDX_2d0468de112057303f87a289c9` (`deletedAt`), ' +
+      '  `created_at` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), ' +
+      '  `updated_at` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6), ' +
+      '  `deleted_at` datetime(6) NULL, ' +
+
+      '  INDEX `IDX_79afa0ffaf72f96ddd5aa4a1d4` (`deleted_at`), ' +
       '  PRIMARY KEY (`id`)' +
       ') ENGINE=InnoDB'
     );
@@ -37,7 +38,7 @@ export class CreateTipoEmergenciaTable1714343589769 implements MigrationInterfac
     await queryRunner.query('DROP INDEX `IDX_bf99c61622f2f9ea52ddf122b4` ON `tipo_emergencia_x_grandeza`');
     await queryRunner.query('DROP INDEX `IDX_773e08ef56c9caa3e56ccfc7eb` ON `tipo_emergencia_x_grandeza`');
     await queryRunner.query('DROP TABLE `tipo_emergencia_x_grandeza`');
-    await queryRunner.query('DROP INDEX `IDX_2d0468de112057303f87a289c9` ON `tipo_emergencia`');
+    await queryRunner.query('DROP INDEX `IDX_79afa0ffaf72f96ddd5aa4a1d4` ON `tipo_emergencia`');
 
     await queryRunner.query('DROP TABLE `tipo_emergencia`');
   }

@@ -13,7 +13,7 @@ export class CreateTipoEmergenciaRequest {
   @IsOptional()
   @IsArray()
   @ApiProperty({
-    description: 'Lista de IDs das Grandezas associadas ao Tipo de Emergência',
+    description: 'Lista de das Grandezas associadas ao Tipo de Emergência',
     type: [GrandezaIdRequest],
     required: false,
     example: [{ id: 1 }]

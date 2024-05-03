@@ -10,8 +10,8 @@ import { SensorModel } from '@/emergency/models/SensorModel'
 export class SensorRepository extends DatabaseRepository<SensorModel, number> {
   public constructor(@InjectRepository(SensorModel) repository: Repository<SensorModel>) {
     super(repository, 'sensor', [
-      'especificacoes',
-      { field: 'especificacoes.grandeza' },
+      { field: 'sensor.especificacoes', alias: 'e' },
+      { field: 'e.grandeza' },
     ])
   }
 }

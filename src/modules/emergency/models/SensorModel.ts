@@ -1,7 +1,8 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 
 import { SoftDeleteBaseModel } from '@/core/models/SoftDeleteBaseModel'
 import { EspecificacaoGrandezaModel } from '@/emergency/models/EspecificacaoGrandezaModel'
+import { UdeModel } from '@/emergency/models/UdeModel'
 
 @Entity('sensor')
 export class SensorModel extends SoftDeleteBaseModel {
@@ -21,4 +22,7 @@ export class SensorModel extends SoftDeleteBaseModel {
 
   @OneToMany(() => EspecificacaoGrandezaModel, (model) => model.sensor, { cascade: true })
   especificacoes?: EspecificacaoGrandezaModel[]
+
+  @ManyToMany(() => UdeModel, (model) => model.sensores)
+  udes: UdeModel[]
 }

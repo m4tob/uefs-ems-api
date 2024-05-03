@@ -10,12 +10,13 @@ export class CreateAccountTable1714343577159 implements MigrationInterface {
       '  `nome` varchar(100) NULL,' +
       '  `email` varchar(100) NULL,' +
       '  `password` varchar(255) NULL,' +
-      '  `createdAt` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),' +
-      '  `updatedAt` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),' +
-      '  `deletedAt` datetime(6) NULL,' +
 
-      '  INDEX `IDX_2cabb849760babe66490f024e1` (`deletedAt`),' +
+      '  `created_at` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),' +
+      '  `updated_at` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),' +
+      '  `deleted_at` datetime(6) NULL,' +
+
       '  UNIQUE INDEX `IDX_account_email` (`email`),' +
+      '  INDEX `IDX_10389424cb6dac9dc4e8ee91c4` (`deleted_at`),' +
       '  PRIMARY KEY (`id`)' +
       ') ENGINE=InnoDB'
     );
@@ -23,7 +24,7 @@ export class CreateAccountTable1714343577159 implements MigrationInterface {
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query('DROP INDEX `IDX_account_email` ON `Account`');
-    await queryRunner.query('DROP INDEX `IDX_2cabb849760babe66490f024e1` ON `Account`');
+    await queryRunner.query('DROP INDEX `IDX_10389424cb6dac9dc4e8ee91c4` ON `Account`');
     await queryRunner.query('DROP TABLE `Account`');
   }
 }

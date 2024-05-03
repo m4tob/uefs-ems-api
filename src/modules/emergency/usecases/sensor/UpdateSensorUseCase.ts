@@ -28,6 +28,8 @@ export class UpdateSensorUseCase {
       return new EspecificacaoGrandezaModel({
         id: especificacao.id,
         sensorId: model.id,
+        sensor: model,
+        grandezaId: grandezaId.id,
         grandeza: new GrandezaModel({ id: grandezaId.id }),
         valorMinimo,
         valorMaximo,

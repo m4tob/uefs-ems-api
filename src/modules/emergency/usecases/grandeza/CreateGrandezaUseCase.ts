@@ -14,13 +14,13 @@ export class CreateGrandezaUseCase {
   async execute(input: CreateGrandezaRequest): Promise<GrandezaResponse> {
     const { nome, unidadeMedida, sigla } = input
 
-    const updatedModel = new GrandezaModel({
+    const model = new GrandezaModel({
       nome,
       unidadeMedida,
       sigla,
     })
 
-    const createdModel = await this.grandezaRepository.save(updatedModel)
+    const createdModel = await this.grandezaRepository.save(model)
 
     return GrandezaResponse.toResponse(createdModel)
   }

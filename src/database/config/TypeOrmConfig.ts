@@ -6,6 +6,8 @@ import { EspecificacaoGrandezaModel } from '@/emergency/models/EspecificacaoGran
 import { GrandezaModel } from '@/emergency/models/GrandezaModel'
 import { SensorModel } from '@/emergency/models/SensorModel'
 import { TipoEmergenciaModel } from '@/emergency/models/TipoEmergenciaModel'
+import { UdeModel } from '@/emergency/models/UdeModel'
+import { ZonaModel } from '@/emergency/models/ZonaModel'
 
 export default {
   type: 'mysql',
@@ -29,6 +31,8 @@ export default {
     TipoEmergenciaModel,
     SensorModel,
     EspecificacaoGrandezaModel,
+    ZonaModel,
+    UdeModel,
   ],
   bigNumberStrings: false,
   timezone: '+00:00',

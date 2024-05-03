@@ -29,6 +29,6 @@ export class GrandezaModel extends SoftDeleteBaseModel {
   })
   sigla?: string
 
-  @ManyToMany(() => TipoEmergenciaModel, (tipoEmergencia) => tipoEmergencia.grandezas)
+  @ManyToMany(() => TipoEmergenciaModel, (model) => model.grandezas)
   tiposEmergencia: TipoEmergenciaModel[]
 }

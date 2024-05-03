@@ -15,23 +15,24 @@ export class EspecificacaoGrandezaModel extends SoftDeleteBaseModel {
   @PrimaryGeneratedColumn()
   id: number
 
-  @Column()
+  @Column({ name: 'sensor_id' })
   sensorId: number
 
   @ManyToOne(() => SensorModel, (model) => model.especificacoes, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'sensor_id' })
   sensor?: SensorModel
 
-  @Column()
+  @Column({ name: 'grandeza_id' })
   grandezaId: number
 
   @ManyToOne(() => GrandezaModel, (model) => model.id)
-  @JoinColumn()
+  @JoinColumn({ name: 'grandeza_id' })
   grandeza?: GrandezaModel
 
-  @Column({ type: 'decimal', precision: 8, scale: 3, nullable: true })
+  @Column({ name: 'valor_minimo', type: 'decimal', precision: 8, scale: 3, nullable: true })
   valorMinimo?: number
 
-  @Column({ type: 'decimal', precision: 8, scale: 3, nullable: true })
+  @Column({ name: 'valor_maximo', type: 'decimal', precision: 8, scale: 3, nullable: true })
   valorMaximo?: number
 
   @Column({ type: 'varchar', length: 15, nullable: true })

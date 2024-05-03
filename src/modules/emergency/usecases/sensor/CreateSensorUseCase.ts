@@ -28,13 +28,13 @@ export class CreateSensorUseCase {
       })
     })
 
-    const updatedModel = new SensorModel({
+    const model = new SensorModel({
       modelo,
       descricao,
       especificacoes,
     })
 
-    const createdModel = await this.sensorRepository.save(updatedModel)
+    const createdModel = await this.sensorRepository.save(model)
 
     return SensorResponse.toResponse(createdModel)
   }

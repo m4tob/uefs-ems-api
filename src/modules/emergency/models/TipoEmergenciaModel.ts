@@ -16,7 +16,7 @@ export class TipoEmergenciaModel extends SoftDeleteBaseModel {
   @Column({ length: 50 })
   nome: string
 
-  @ManyToMany(() => GrandezaModel, (grandeza) => grandeza.tiposEmergencia)
+  @ManyToMany(() => GrandezaModel, (model) => model.tiposEmergencia)
   @JoinTable({
     name: 'tipo_emergencia_x_grandeza',
     joinColumn: { name: 'tipo_emergencia_id' },

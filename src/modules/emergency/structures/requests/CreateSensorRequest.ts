@@ -7,13 +7,18 @@ export class CreateSensorRequest {
   @IsDefined()
   @IsString()
   @MaxLength(50)
-  @ApiProperty({ description: 'Modelo do Sensor', maxLength: 50, example: 'Temperatura' })
+  @ApiProperty({ description: 'Modelo do Sensor', maxLength: 50, example: 'CM18-2008A' })
   modelo: string
 
   @IsOptional()
   @IsString()
   @MaxLength(255)
-  @ApiProperty({ description: 'Descrição do Sensor', required: false, maxLength: 255, example: '' })
+  @ApiProperty({
+    description: 'Descrição do Sensor',
+    required: false,
+    maxLength: 255,
+    example: 'Sensor Com Cabo Capacitivo CM18-2008A não faceado 18mm 90-250Vca (NA) C/ 2 Fios e Range 8mm'
+  })
   descricao?: string
 
   @IsDefined()

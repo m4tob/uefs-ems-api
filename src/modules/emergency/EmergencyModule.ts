@@ -4,16 +4,23 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import { GrandezaController } from '@/emergency/controllers/GrandezaController'
 import { SensorController } from '@/emergency/controllers/SensorController'
 import { TipoEmergenciaController } from '@/emergency/controllers/TipoEmergenciaController'
-import { EduModel } from '@/emergency/models/EduModel'
+import { UdeController } from '@/emergency/controllers/UdeController'
 import { EspecificacaoGrandezaModel } from '@/emergency/models/EspecificacaoGrandezaModel'
 import { GrandezaModel } from '@/emergency/models/GrandezaModel'
 import { SensorModel } from '@/emergency/models/SensorModel'
 import { TipoEmergenciaModel } from '@/emergency/models/TipoEmergenciaModel'
+import { UdeModel } from '@/emergency/models/UdeModel'
+import { ZonaModel } from '@/emergency/models/ZonaModel'
 import { GrandezaRepository } from '@/emergency/repositories/GrandezaRepository'
+import { SensorRepository } from '@/emergency/repositories/SensorRepository'
 import { TipoEmergenciaRepository } from '@/emergency/repositories/TipoEmergenciaRepository'
+import { UdeRepository } from '@/emergency/repositories/UdeRepository'
+import { ZonaRepository } from '@/emergency/repositories/ZonaRepository '
 import { GrandezaFacade } from '@/emergency/services/GrandezaFacade'
 import { SensorFacade } from '@/emergency/services/SensorFacade'
 import { TipoEmergenciaFacade } from '@/emergency/services/TipoEmergenciaFacade'
+import { UdeFacade } from '@/emergency/services/UdeFacade'
+import { ZonaFacade } from '@/emergency/services/ZonaFacade'
 import { CreateGrandezaUseCase } from '@/emergency/usecases/grandeza/CreateGrandezaUseCase'
 import { DeleteGrandezaUseCase } from '@/emergency/usecases/grandeza/DeleteGrandezaUseCase'
 import { FindGrandezaByIdUseCase } from '@/emergency/usecases/grandeza/FindGrandezaByIdUseCase'
@@ -29,7 +36,17 @@ import { DeleteTipoEmergenciaUseCase } from '@/emergency/usecases/tipo-emergenci
 import { FindTipoEmergenciaByIdUseCase } from '@/emergency/usecases/tipo-emergencia/FindTipoEmergenciaByIdUseCase'
 import { ListTiposEmergenciaUseCase } from '@/emergency/usecases/tipo-emergencia/ListTiposEmergenciaUseCase'
 import { UpdateTipoEmergenciaUseCase } from '@/emergency/usecases/tipo-emergencia/UpdateTipoEmergenciaUseCase'
-import { SensorRepository } from '@/emergency/repositories/SensorRepository'
+import { CreateUdeUseCase } from '@/emergency/usecases/ude/CreateUdeUseCase'
+import { DeleteUdeUseCase } from '@/emergency/usecases/ude/DeleteUdeUseCase'
+import { FindUdeByIdUseCase } from '@/emergency/usecases/ude/FindUdeByIdUseCase'
+import { ListUdesUseCase } from '@/emergency/usecases/ude/ListUdesUseCase'
+import { UpdateUdeUseCase } from '@/emergency/usecases/ude/UpdateUdeUseCase'
+import { CreateZonaUseCase } from '@/emergency/usecases/zona/CreateZonaUseCase'
+import { DeleteZonaUseCase } from '@/emergency/usecases/zona/DeleteZonaUseCase'
+import { FindZonaByIdUseCase } from '@/emergency/usecases/zona/FindZonaByIdUseCase'
+import { ListZonasUseCase } from '@/emergency/usecases/zona/ListZonasUseCase'
+import { UpdateZonaUseCase } from '@/emergency/usecases/zona/UpdateZonaUseCase'
+import { ZonaController } from '@/emergency/controllers/ZonaController'
 
 @Module({
   imports: [
@@ -38,15 +55,32 @@ import { SensorRepository } from '@/emergency/repositories/SensorRepository'
       TipoEmergenciaModel,
       SensorModel,
       EspecificacaoGrandezaModel,
-      EduModel,
+      ZonaModel,
+      UdeModel,
     ]),
   ],
   controllers: [
     GrandezaController,
     TipoEmergenciaController,
     SensorController,
+    ZonaController,
+    UdeController,
   ],
   providers: [
+    // Facade
+    GrandezaFacade,
+    TipoEmergenciaFacade,
+    SensorFacade,
+    ZonaFacade,
+    UdeFacade,
+
+    // Repositories
+    GrandezaRepository,
+    TipoEmergenciaRepository,
+    SensorRepository,
+    ZonaRepository,
+    UdeRepository,
+
     // Usecases
     ListGrandezasUseCase,
     FindGrandezaByIdUseCase,
@@ -66,15 +100,17 @@ import { SensorRepository } from '@/emergency/repositories/SensorRepository'
     UpdateSensorUseCase,
     DeleteSensorUseCase,
 
-    // Facade
-    GrandezaFacade,
-    TipoEmergenciaFacade,
-    SensorFacade,
+    ListZonasUseCase,
+    FindZonaByIdUseCase,
+    CreateZonaUseCase,
+    UpdateZonaUseCase,
+    DeleteZonaUseCase,
 
-    // Repositories
-    GrandezaRepository,
-    TipoEmergenciaRepository,
-    SensorRepository,
+    ListUdesUseCase,
+    FindUdeByIdUseCase,
+    CreateUdeUseCase,
+    UpdateUdeUseCase,
+    DeleteUdeUseCase,
   ],
 })
 export class EmergencyModule { }

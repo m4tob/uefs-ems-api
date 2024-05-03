@@ -8,42 +8,44 @@ export class CreateSensorTable1714655309252 implements MigrationInterface {
       '  `id` int NOT NULL AUTO_INCREMENT, ' +
       '  `modelo` varchar(50) NOT NULL, ' +
       '  `descricao` varchar(255) NULL, ' +
-      '  `createdAt` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), ' +
-      '  `updatedAt` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6), ' +
-      '  `deletedAt` datetime(6) NULL, ' +
 
-      '  INDEX `IDX_9aa960c4d048567633cefadb5a` (`deletedAt`), ' +
+      '  `created_at` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), ' +
+      '  `updated_at` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6), ' +
+      '  `deleted_at` datetime(6) NULL, ' +
+
+      '  INDEX `IDX_bdca0a2895b53008dea8657ac8` (`deleted_at`), ' +
       '  PRIMARY KEY (`id`)' +
       ') ENGINE=InnoDB'
     );
 
     await queryRunner.query('CREATE TABLE `especificacao_grandeza` (' +
       '  `id` int NOT NULL AUTO_INCREMENT, ' +
-      '  `sensorId` int NOT NULL, ' +
-      '  `grandezaId` int NOT NULL, ' +
-      '  `valorMinimo` decimal(8,3) NULL, ' +
-      '  `valorMaximo` decimal(8,3) NULL, ' +
+      '  `sensor_id` int NOT NULL, ' +
+      '  `grandeza_id` int NOT NULL, ' +
+      '  `valor_minimo` decimal(8,3) NULL, ' +
+      '  `valor_maximo` decimal(8,3) NULL, ' +
       '  `sinal` varchar(15) NULL, ' +
-      '  `createdAt` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), ' +
-      '  `updatedAt` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6), ' +
-      '  `deletedAt` datetime(6) NULL, ' +
 
-      '  INDEX `IDX_25907626172b665fd34153c971` (`deletedAt`), ' +
+      '  `created_at` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), ' +
+      '  `updated_at` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6), ' +
+      '  `deleted_at` datetime(6) NULL, ' +
+
+      '  INDEX `IDX_c7a90a9d09acad8246f7e17f34` (`deleted_at`), ' +
       '  PRIMARY KEY (`id`)' +
       ') ENGINE=InnoDB'
     );
 
-    await queryRunner.query('ALTER TABLE `especificacao_grandeza` ADD CONSTRAINT `FK_d74a6be186b1a7fe04fbeb90f16` FOREIGN KEY (`sensorId`) REFERENCES `sensor`(`id`) ON DELETE CASCADE ON UPDATE NO ACTION');
-    await queryRunner.query('ALTER TABLE `especificacao_grandeza` ADD CONSTRAINT `FK_db4ff1ee7201702067541bf8158` FOREIGN KEY (`grandezaId`) REFERENCES `grandeza`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION');
+    await queryRunner.query('ALTER TABLE `especificacao_grandeza` ADD CONSTRAINT `FK_e61d23b87f73a985ff054e8aa5d` FOREIGN KEY (`sensor_id`) REFERENCES `sensor`(`id`) ON DELETE CASCADE ON UPDATE NO ACTION');
+    await queryRunner.query('ALTER TABLE `especificacao_grandeza` ADD CONSTRAINT `FK_dc3e717bb039ad1e350ec3305a6` FOREIGN KEY (`grandeza_id`) REFERENCES `grandeza`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION');
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query('ALTER TABLE `especificacao_grandeza` DROP FOREIGN KEY `FK_db4ff1ee7201702067541bf8158`');
-    await queryRunner.query('ALTER TABLE `especificacao_grandeza` DROP FOREIGN KEY `FK_d74a6be186b1a7fe04fbeb90f16`');
-    await queryRunner.query('DROP INDEX `IDX_25907626172b665fd34153c971` ON `especificacao_grandeza`');
+    await queryRunner.query('ALTER TABLE `especificacao_grandeza` DROP FOREIGN KEY `FK_dc3e717bb039ad1e350ec3305a6`');
+    await queryRunner.query('ALTER TABLE `especificacao_grandeza` DROP FOREIGN KEY `FK_e61d23b87f73a985ff054e8aa5d`');
+    await queryRunner.query('DROP INDEX `IDX_c7a90a9d09acad8246f7e17f34` ON `especificacao_grandeza`');
     await queryRunner.query('DROP TABLE `especificacao_grandeza`');
 
-    await queryRunner.query('DROP INDEX `IDX_9aa960c4d048567633cefadb5a` ON `sensor`');
+    await queryRunner.query('DROP INDEX `IDX_bdca0a2895b53008dea8657ac8` ON `sensor`');
     await queryRunner.query('DROP TABLE `sensor`');
   }
 }

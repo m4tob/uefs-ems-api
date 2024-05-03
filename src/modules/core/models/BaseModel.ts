@@ -1,9 +1,9 @@
 import { CreateDateColumn, UpdateDateColumn } from 'typeorm'
 
 export abstract class BaseModel {
-  @CreateDateColumn()
+  @CreateDateColumn({ name: 'created_at' })
   readonly createdAt?: Date
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ name: 'updated_at' })
   readonly updatedAt?: Date
 }
