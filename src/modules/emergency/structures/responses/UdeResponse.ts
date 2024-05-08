@@ -3,7 +3,7 @@ import { ApiProperty } from '@nestjs/swagger'
 import { IsArray, IsDefined, IsNumber, IsOptional, IsString, MaxLength } from 'class-validator'
 
 import { UdeModel } from '@/emergency/models/UdeModel'
-import { SensorResponse } from '@/emergency/structures/responses/SensorResponse'
+import { DeteccaoEmergenciaResponse } from '@/emergency/structures/responses/DeteccaoEmergenciaResponse'
 import { ZonaResponse } from '@/emergency/structures/responses/ZonaResponse'
 
 export class UdeResponse {
@@ -43,10 +43,10 @@ export class UdeResponse {
   @ApiProperty({ description: 'Zona de atuação da UDE', required: false, type: ZonaResponse })
   zona?: ZonaResponse
 
-  @IsOptional()
+  @IsDefined()
   @IsArray()
-  @ApiProperty({ description: 'Sensores da UDE', type: [SensorResponse] })
-  sensores: SensorResponse[]
+  @ApiProperty({ description: 'Lista dos Configurações de Detecção de Emergências', type: [DeteccaoEmergenciaResponse] })
+  deteccoesEmergencia: DeteccaoEmergenciaResponse[]
 
   static toResponse(model: UdeModel): UdeResponse {
     return {
@@ -57,7 +57,8 @@ export class UdeResponse {
       longitude: model.longitude,
       operatingRange: model.operatingRange,
       zona: model.zona && ZonaResponse.toResponse(model.zona),
-      sensores: (model.sensores || []).map((sensor) => SensorResponse.toResponse(sensor)),
+      deteccoesEmergencia: [],
+      // deteccoesEmergencia: (model.sensores || []).map((sensor) => DeteccaoEmergenciaResponse.toResponse(sensor as any)), // TODO
     }
   }
 }

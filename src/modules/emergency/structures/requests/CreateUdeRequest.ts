@@ -1,4 +1,4 @@
-import { SensorIdRequest } from "@/emergency/structures/requests/SensorIdRequest"
+import { DeteccaoEmergenciaRequest } from "@/emergency/structures/requests/DeteccaoEmergenciaRequest"
 import { ZonaIdRequest } from "@/emergency/structures/requests/ZonaIdRequest"
 import { ApiProperty } from "@nestjs/swagger"
 import { IsArray, IsDefined, IsNumber, IsOptional, IsString, MaxLength } from "class-validator"
@@ -38,10 +38,8 @@ export class CreateUdeRequest {
   @IsDefined()
   @IsArray()
   @ApiProperty({
-    description: 'Lista dos Sensores associados à UDE',
-    type: [SensorIdRequest],
-    required: false,
-    example: [{ id: 1 }]
+    description: 'Lista dos Configurações de Detecção de Emergências',
+    type: [DeteccaoEmergenciaRequest],
   })
-  sensores: SensorIdRequest[]
+  deteccoesEmergencia: DeteccaoEmergenciaRequest[]
 }

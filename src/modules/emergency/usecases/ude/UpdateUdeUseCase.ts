@@ -1,11 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 
-import { UdeRepository } from '@/emergency/repositories/UdeRepository'
-import { UdeResponse } from '@/emergency/structures/responses/UdeResponse'
-import { UpdateUdeRequest } from '@/emergency/structures/requests/UpdateUdeRequest'
 import { ErrorMessages } from '@/core/helpers/ErrorMessages'
-import { SensorModel } from '@/emergency/models/SensorModel'
 import { ZonaModel } from '@/emergency/models/ZonaModel'
+import { UdeRepository } from '@/emergency/repositories/UdeRepository'
+import { UpdateUdeRequest } from '@/emergency/structures/requests/UpdateUdeRequest'
+import { UdeResponse } from '@/emergency/structures/responses/UdeResponse'
 
 @Injectable()
 export class UpdateUdeUseCase {
@@ -19,10 +18,10 @@ export class UpdateUdeUseCase {
       throw new NotFoundException(ErrorMessages.emergency.ude.notFound)
     }
 
-    const { label, mac, latitude, longitude, operatingRange, zona: zonaId, sensores: sensoresIds } = input
+    const { label, mac, latitude, longitude, operatingRange, zona: zonaId } = input
 
     const zona = new ZonaModel({ id: zonaId?.id })
-    const sensores = sensoresIds?.map((sensorId) => new SensorModel({ id: sensorId.id })) || []
+    // const detecocesEmergencia = [] // TODO
 
     model.label = label
     model.mac = mac
@@ -31,7 +30,7 @@ export class UpdateUdeUseCase {
     model.operatingRange = operatingRange
 
     model.zonaId = zona.id
-    model.sensores = sensores
+    // model.detecocesEmergencia = detecocesEmergencia // TODO
 
     const updatedModel = await this.udeRepository.save(model)
 

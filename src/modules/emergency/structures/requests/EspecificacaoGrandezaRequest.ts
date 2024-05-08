@@ -1,7 +1,7 @@
 import { TipoSinalEnum } from "@/emergency/structures/enum/TipoSinalEnum"
 import { GrandezaIdRequest } from "@/emergency/structures/requests/GrandezaIdRequest"
 import { ApiProperty } from "@nestjs/swagger"
-import { IsEnum, IsNumber, IsOptional } from "class-validator"
+import { IsDefined, IsEnum, IsNumber, IsOptional } from "class-validator"
 
 export class EspecificacaoGrandezaRequest {
   @IsOptional()
@@ -9,11 +9,10 @@ export class EspecificacaoGrandezaRequest {
   @ApiProperty({ description: 'Identificador da Especificação de Grandeza', example: 1 })
   id?: number
 
-  @IsOptional()
+  @IsDefined()
   @ApiProperty({
-    description: 'Especificação de Grandeza',
+    description: 'Grandeza especificada',
     type: GrandezaIdRequest,
-    required: false,
   })
   grandeza: GrandezaIdRequest
 
