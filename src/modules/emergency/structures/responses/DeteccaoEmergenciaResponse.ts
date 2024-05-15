@@ -1,15 +1,16 @@
 import { ApiProperty } from '@nestjs/swagger'
 
-import { IsDefined, IsNumber, IsOptional } from 'class-validator'
+import { IsArray, IsBoolean, IsDefined, IsNumber, IsOptional } from 'class-validator'
 
 import { TipoEmergenciaModel } from '@/emergency/models/TipoEmergenciaModel'
 import { GrandezaResponse } from '@/emergency/structures/responses/GrandezaResponse'
 import { SensorResponse } from '@/emergency/structures/responses/SensorResponse'
+import { TipoEmergenciaResponse } from '@/emergency/structures/responses/TipoEmergenciaResponse'
 
-export class DeteccaoEmergenciaResponse {
+export class MonitoramentoGrandezaResponse {
   @IsDefined()
   @IsNumber()
-  @ApiProperty({ description: 'Identificador da Configuração de Detecção de Emergência', example: 1 })
+  @ApiProperty({ description: 'Identificador do Monitoramento de Grandeza', example: 1 })
   id: number
 
   @IsDefined()
@@ -31,8 +32,25 @@ export class DeteccaoEmergenciaResponse {
   thresholdMaximo?: number
 
   @IsDefined()
+  @IsBoolean()
   @ApiProperty({ description: 'Indica se a detecção está ativa', example: true })
-  ativo: Boolean
+  ativo?: Boolean
+}
+
+export class DeteccaoEmergenciaResponse {
+  @IsDefined()
+  @IsNumber()
+  @ApiProperty({ description: 'Identificador da Configuração de Detecção de Emergência', example: 1 })
+  id: number
+
+  @IsDefined()
+  @ApiProperty({ description: 'Tipo de Emergência monitorada', type: TipoEmergenciaResponse })
+  tipoEmergencia: TipoEmergenciaResponse
+
+  @IsDefined()
+  @IsArray()
+  @ApiProperty({ description: 'Monitoramentos de Grandeza', type: [MonitoramentoGrandezaResponse] })
+  monitoramentos: MonitoramentoGrandezaResponse[]
 
   static toResponse(model: TipoEmergenciaModel): DeteccaoEmergenciaResponse {
     return {

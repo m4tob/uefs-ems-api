@@ -35,9 +35,13 @@ export class NotifyUdeUpdatedPayload {
       ?.reduce((result: any, deteccao: DeteccaoEmergenciaModel) => {
         deteccao.monitoramentosGrandeza
           ?.filter(m => m.ativo)
+          // Remove duplicates by sensor id
+          .filter((m1, index, self) => index === self.findIndex((m2) => (m1.sensorId === m2.sensorId && m1.grandezaId === m2.grandezaId)))
           .forEach(monitoramento => result.push({
             modelo: monitoramento.sensor!!.modelo,
-            grandeza: monitoramento.grandeza?.nome.toLowerCase() || 'grandeza'
+            grandeza: (monitoramento.grandeza?.nome.toLowerCase() || 'grandeza')
+              .normalize("NFD")
+              .replace(/[\u0300-\u036f]/g, "")
           }))
         return result
       }, [] as SensorAtivoPayload[])
@@ -46,14 +50,22 @@ export class NotifyUdeUpdatedPayload {
       ?.reduce((result: any, d: DeteccaoEmergenciaModel, dIndex: number) => {
         const grandezas = d.monitoramentosGrandeza
           ?.reduce((mAcc: any, monitoramento, mIndex: number) => {
-            mAcc[monitoramento.grandeza?.nome.toLowerCase() || `grandeza_${mIndex}`] = {
+            let mKey = monitoramento.grandeza?.nome.toLowerCase() || `grandeza_${mIndex}`
+            mKey = mKey.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+            mAcc[mKey] = {
               thresholdMinimo: monitoramento.thresholdMinimo || null,
               thresholdMaximo: monitoramento.thresholdMaximo || null,
             }
             return mAcc
           }, {} as EmergenciaPayload)
 
-        result[d.tipoEmergencia?.nome.toLowerCase() || `emergency_${dIndex}`] = grandezas
+        let eKey = d.tipoEmergencia?.nome.toLowerCase() || `emergencia_${dIndex}`
+        eKey = eKey.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+
+        if (!result[eKey]) {
+          result[eKey] = []
+        }
+        result[eKey].push(grandezas)
 
         return result
       }, {} as EmergenciasPayload)
