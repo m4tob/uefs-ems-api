@@ -51,4 +51,12 @@ export class Environment {
   static get SENTRY_DSN () {
     return process.env.SENTRY_DSN || ''
   }
+
+  static get MQTT_BROKER() {
+    return process.env.MQTT_BROKER || 'tcp://broker.mqtt.cool:1883'
+  }
+
+  static get MQTT_TOPIC_UPDATE_UDE() {
+    return process.env.MQTT_TOPIC_UPDATE_UDE || 'update_ude'
+  }
 }

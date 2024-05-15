@@ -2,8 +2,10 @@ import { TypeOrmModuleOptions } from '@nestjs/typeorm'
 
 import { Environment as envs } from '@/Environment'
 import { AccountModel } from '@/account/models/AccountModel'
+import { DeteccaoEmergenciaModel } from '@/emergency/models/DeteccaoEmergenciaModel'
 import { EspecificacaoGrandezaModel } from '@/emergency/models/EspecificacaoGrandezaModel'
 import { GrandezaModel } from '@/emergency/models/GrandezaModel'
+import { MonitoramentoGrandezaModel } from '@/emergency/models/MonitoramentoGrandezaModel'
 import { SensorModel } from '@/emergency/models/SensorModel'
 import { TipoEmergenciaModel } from '@/emergency/models/TipoEmergenciaModel'
 import { UdeModel } from '@/emergency/models/UdeModel'
@@ -33,6 +35,8 @@ export default {
     EspecificacaoGrandezaModel,
     ZonaModel,
     UdeModel,
+    DeteccaoEmergenciaModel,
+    MonitoramentoGrandezaModel,
   ],
   bigNumberStrings: false,
   timezone: '+00:00',

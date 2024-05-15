@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common'
-import { ApiCreatedResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger'
+import { ApiBearerAuth, ApiCreatedResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger'
 
 import { UdeFacade } from '@/emergency/services/UdeFacade'
 import { UdeResponse } from '@/emergency/structures/responses/UdeResponse'
@@ -8,10 +8,12 @@ import { UpdateUdeRequest } from '@/emergency/structures/requests/UpdateUdeReque
 import { Roles } from '@/auth/decorators/Roles'
 import { Role } from '@/account/structures/enum/Role'
 import { RoleGuard } from '@/auth/guards/RoleGuard'
+import { NotifyUdeUpdatedPayload } from '@/emergency/structures/payloads/NotifyUdeUpdatedPayload'
 
 @Controller({ version: '1', path: 'udes' })
 @ApiTags('udes')
   @UseGuards(RoleGuard)
+@ApiBearerAuth('Role Access Token')
 export class UdeController {
   constructor(private readonly udeFacade: UdeFacade) { }
 
@@ -68,5 +70,16 @@ export class UdeController {
     @Param('id') id: number,
   ): Promise<void> {
     return this.udeFacade.delete(id)
+  }
+
+  @Post('/:id')
+  @Roles([Role.ADMIN, Role.USER])
+  @ApiOperation({ summary: 'Força a notificação de atualização de uma UDE com os dados atuais' })
+  @ApiParam({ name: 'id', description: 'Identificador da UDE', type: Number, example: 1 })
+  @ApiOkResponse()
+  notifyUpdate(
+    @Param('id') id: number,
+  ): Promise<NotifyUdeUpdatedPayload> {
+    return this.udeFacade.notifyUpdate(id)
   }
 }

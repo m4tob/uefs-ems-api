@@ -21,7 +21,6 @@ export class RoleGuard extends JwtGuard<AuthPayload> {
     if (!authorized) return false
 
     const roles = this.reflector.get(Roles, context.getHandler());
-    console.log(context)
     if (!roles?.length) {
       return true;
     }

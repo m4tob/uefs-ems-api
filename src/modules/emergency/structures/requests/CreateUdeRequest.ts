@@ -1,9 +1,15 @@
+import { TipoUdeEnum } from "@/emergency/structures/enum/TipoUdeEnum"
 import { DeteccaoEmergenciaRequest } from "@/emergency/structures/requests/DeteccaoEmergenciaRequest"
 import { ZonaIdRequest } from "@/emergency/structures/requests/ZonaIdRequest"
 import { ApiProperty } from "@nestjs/swagger"
-import { IsArray, IsDefined, IsNumber, IsOptional, IsString, MaxLength } from "class-validator"
+import { IsArray, IsDefined, IsEnum, IsNumber, IsOptional, IsString, MaxLength } from "class-validator"
 
 export class CreateUdeRequest {
+  @IsDefined()
+  @IsEnum(TipoUdeEnum)
+  @ApiProperty({ description: 'Tipo de UDE', enum: TipoUdeEnum, example: 'APC' })
+  tipo: TipoUdeEnum
+
   @IsDefined()
   @IsString()
   @MaxLength(50)

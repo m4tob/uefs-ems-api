@@ -1,16 +1,22 @@
 import { ApiProperty } from '@nestjs/swagger'
 
-import { IsArray, IsDefined, IsNumber, IsOptional, IsString, MaxLength } from 'class-validator'
+import { IsArray, IsDefined, IsEnum, IsNumber, IsOptional, IsString, MaxLength } from 'class-validator'
 
 import { UdeModel } from '@/emergency/models/UdeModel'
 import { DeteccaoEmergenciaResponse } from '@/emergency/structures/responses/DeteccaoEmergenciaResponse'
 import { ZonaResponse } from '@/emergency/structures/responses/ZonaResponse'
+import { TipoUdeEnum } from '@/emergency/structures/enum/TipoUdeEnum'
 
 export class UdeResponse {
   @IsDefined()
   @IsNumber()
   @ApiProperty({ description: 'Identificador da UDE', example: 1 })
   id: number
+
+  @IsDefined()
+  @IsEnum(TipoUdeEnum)
+  @ApiProperty({ description: 'Tipo de UDE', enum: TipoUdeEnum, example: 'APC' })
+  tipo: TipoUdeEnum
 
   @IsDefined()
   @IsString()
@@ -51,6 +57,7 @@ export class UdeResponse {
   static toResponse(model: UdeModel): UdeResponse {
     return {
       id: model.id,
+      tipo: model.tipo,
       label: model.label,
       mac: model.mac,
       latitude: model.latitude,

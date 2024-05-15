@@ -1,7 +1,7 @@
-import { GrandezaIdRequest } from "@/emergency/structures/requests/GrandezaIdRequest"
-import { SensorIdRequest } from "@/emergency/structures/requests/SensorIdRequest"
+import { MonitoramentoGrandezaRequest } from "@/emergency/structures/requests/MonitoramentoGrandezaRequest"
+import { TipoEmergenciaIdRequest } from "@/emergency/structures/requests/TipoEmergenciaIdRequest"
 import { ApiProperty } from "@nestjs/swagger"
-import { IsBoolean, IsDefined, IsNumber, IsOptional } from "class-validator"
+import { IsArray, IsDefined, IsNumber, IsOptional } from "class-validator"
 
 export class DeteccaoEmergenciaRequest {
   @IsOptional()
@@ -10,25 +10,11 @@ export class DeteccaoEmergenciaRequest {
   id?: number
 
   @IsDefined()
-  @ApiProperty({ description: 'Sensor responsável pelo monitoramento', type: SensorIdRequest })
-  sensor: SensorIdRequest
+  @ApiProperty({ description: 'Tipo de Emergência monitorada', type: TipoEmergenciaIdRequest })
+  tipoEmergencia: TipoEmergenciaIdRequest
 
   @IsDefined()
-  @ApiProperty({ description: 'Grandeza monitorada', type: GrandezaIdRequest })
-  grandeza: GrandezaIdRequest
-
-  @IsOptional()
-  @IsNumber({ allowNaN: false, maxDecimalPlaces: 3 })
-  @ApiProperty({ description: 'Threshold Mínimo', required: false, example: 20.0 })
-  thresholdMinimo?: number
-
-  @IsOptional()
-  @IsNumber({ allowNaN: false, maxDecimalPlaces: 3 })
-  @ApiProperty({ description: 'Threshold Máximo', required: false, example: 60.0 })
-  thresholdMaximo?: number
-
-  @IsDefined()
-  @IsBoolean()
-  @ApiProperty({ description: 'Indica se a detecção está ativa', example: true })
-  ativo?: Boolean
+  @IsArray()
+  @ApiProperty({ description: 'Monitoramentos de Grandeza', type: [MonitoramentoGrandezaRequest] })
+  monitoramentos: MonitoramentoGrandezaRequest[]
 }

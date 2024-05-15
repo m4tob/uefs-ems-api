@@ -1,8 +1,9 @@
-import { Column, Entity, Index, JoinColumn, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, Index, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 
 import { SoftDeleteBaseModel } from '@/core/models/SoftDeleteBaseModel'
-import { SensorModel } from '@/emergency/models/SensorModel'
+import { DeteccaoEmergenciaModel } from '@/emergency/models/DeteccaoEmergenciaModel'
 import { ZonaModel } from '@/emergency/models/ZonaModel'
+import { TipoUdeEnum } from '@/emergency/structures/enum/TipoUdeEnum'
 
 @Entity('ude')
 export class UdeModel extends SoftDeleteBaseModel {
@@ -13,6 +14,9 @@ export class UdeModel extends SoftDeleteBaseModel {
 
   @PrimaryGeneratedColumn()
   id: number
+
+  @Column({ type: 'varchar', length: 5 })
+  tipo: TipoUdeEnum
 
   @Column({ length: 50 })
   label?: string
@@ -37,11 +41,6 @@ export class UdeModel extends SoftDeleteBaseModel {
   @JoinColumn({ name: 'zona_id' })
   zona?: ZonaModel
 
-  @ManyToMany(() => SensorModel, (model) => model.udes)
-  @JoinTable({
-    name: 'ude_x_sensor',
-    joinColumn: { name: 'ude_id' },
-    inverseJoinColumn: { name: 'sensor_id' }
-  })
-  sensores: SensorModel[]
+  @OneToMany(() => DeteccaoEmergenciaModel, (model) => model.ude, { cascade: true })
+  deteccoesEmergencia: DeteccaoEmergenciaModel[]
 }

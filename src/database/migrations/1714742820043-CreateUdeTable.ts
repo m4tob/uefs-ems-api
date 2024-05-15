@@ -6,6 +6,7 @@ export class CreateUdeTable1714742820043 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query('CREATE TABLE `ude` (' +
       '  `id` int NOT NULL AUTO_INCREMENT, ' +
+      '  `tipo` varchar(5) NOT NULL, ' +
       '  `label` varchar(50) NOT NULL, ' +
       '  `mac` varchar(17) NOT NULL, ' +
       '  `latitude` decimal(10,7) NOT NULL, ' +
@@ -22,27 +23,11 @@ export class CreateUdeTable1714742820043 implements MigrationInterface {
       '  PRIMARY KEY (`id`)' +
       ') ENGINE=InnoDB'
     );
-    await queryRunner.query('CREATE TABLE `ude_x_sensor` (' +
-      '  `ude_id` int NOT NULL, ' +
-      '  `sensor_id` int NOT NULL, ' +
-
-      '  INDEX `IDX_24a2b708badf44cb4b5f40bbc1` (`ude_id`), ' +
-      '  INDEX `IDX_5bb66c2848599922fbf1d5dd5c` (`sensor_id`), ' +
-      '  PRIMARY KEY (`ude_id`, `sensor_id`)' +
-      ') ENGINE=InnoDB'
-    );
     await queryRunner.query('ALTER TABLE `ude` ADD CONSTRAINT `FK_dcfe97e2ec3c8e44049421d448b` FOREIGN KEY (`zona_id`) REFERENCES `zona`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION');
-    await queryRunner.query('ALTER TABLE `ude_x_sensor` ADD CONSTRAINT `FK_24a2b708badf44cb4b5f40bbc17` FOREIGN KEY (`ude_id`) REFERENCES `ude`(`id`) ON DELETE CASCADE ON UPDATE CASCADE');
-    await queryRunner.query('ALTER TABLE `ude_x_sensor` ADD CONSTRAINT `FK_5bb66c2848599922fbf1d5dd5c0` FOREIGN KEY (`sensor_id`) REFERENCES `sensor`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION');
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query('ALTER TABLE `ude_x_sensor` DROP FOREIGN KEY `FK_5bb66c2848599922fbf1d5dd5c0`');
-    await queryRunner.query('ALTER TABLE `ude_x_sensor` DROP FOREIGN KEY `FK_24a2b708badf44cb4b5f40bbc17`');
     await queryRunner.query('ALTER TABLE `ude` DROP FOREIGN KEY `FK_dcfe97e2ec3c8e44049421d448b`');
-    await queryRunner.query('DROP INDEX `IDX_5bb66c2848599922fbf1d5dd5c` ON `ude_x_sensor`');
-    await queryRunner.query('DROP INDEX `IDX_24a2b708badf44cb4b5f40bbc1` ON `ude_x_sensor`');
-    await queryRunner.query('DROP TABLE `ude_x_sensor`');
     await queryRunner.query('DROP INDEX `IDX_d7a5846f9e539a919d81d1c845` ON `ude`');
     await queryRunner.query('DROP INDEX `IDX_b65f2fd9b2430f508243533fb1` ON `ude`');
     await queryRunner.query('DROP TABLE `ude`');
