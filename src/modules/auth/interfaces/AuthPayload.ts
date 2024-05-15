@@ -1,6 +1,10 @@
+import { Role } from "@/account/structures/enum/Role"
+
 export interface Account {
   id: number
   nome: string
+  email: string
+  role?: Role
   createdAt?: Date
   updatedAt?: Date
 }

@@ -1,6 +1,7 @@
 import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm'
 
 import { SoftDeleteBaseModel } from '@/core/models/SoftDeleteBaseModel'
+import { Role } from '@/account/structures/enum/Role'
 
 @Entity('account')
 export class AccountModel extends SoftDeleteBaseModel {
@@ -29,4 +30,7 @@ export class AccountModel extends SoftDeleteBaseModel {
 
   @Column({ length: 255, nullable: true })
   password: string
+
+  @Column({ type: 'varchar', length: 15, nullable: true })
+  role?: Role
 }

@@ -1,30 +1,38 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
+import { Injectable, UnauthorizedException } from '@nestjs/common'
 
 import { AccountRepository } from '@/account/repositories/AccountRepository'
 import { SignInRequest } from '@/account/structures/requests/SignInRequest'
 import { AccountResponse } from '@/account/structures/responses/AccountResponse'
 import { SignInResponse } from '@/account/structures/responses/SignInResponse'
 import { AuthPayload } from '@/auth/interfaces/AuthPayload'
-import { DefaultAuthService } from '@/auth/services/DefaultAuthService'
+import { RoleAuthService } from '@/auth/services/RoleAuthService'
 import { ErrorMessages } from '@/core/helpers/ErrorMessages'
 
 @Injectable()
 export class SignInUseCase {
   constructor (
     private readonly accountRepository: AccountRepository,
-    private readonly defaultAuthService: DefaultAuthService,
+    private readonly defaultAuthService: RoleAuthService,
   ) {}
 
   async execute (request: SignInRequest): Promise<SignInResponse> {
     const account = await this.accountRepository.findOneBy({ email: request.email })
     if(!account) {
-      throw new NotFoundException(ErrorMessages.account.notFound)
+      throw new UnauthorizedException(ErrorMessages.account.notFound)
+    }
+
+    if (request.password !== account.password) {
+      throw new UnauthorizedException(ErrorMessages.account.wrongPassword)
     }
 
     const accountAuthData: AuthPayload = {
       account: {
         id: account.id,
         nome: account.nome,
+        email: account.email,
+        role: account.role,
+        createdAt: account.createdAt,
+        updatedAt: account.updatedAt,
       }
     }
 

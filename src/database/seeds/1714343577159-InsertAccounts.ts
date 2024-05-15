@@ -1,15 +1,42 @@
+import { Role } from '@/account/structures/enum/Role';
 import { MigrationInterface, QueryRunner } from 'typeorm'
 
-const accounts: { nome: string; email: string; password: string }[] = [
+const accounts: { nome: string; email: string; password: string, role: Role }[] = [
   {
     nome: 'Matheus Borges',
     email: 'matob@live.com',
     password: '123456',
+    role: Role.ADMIN,
   },
   {
     nome: 'Inácio Borges',
     email: 'inacioob@gmail.com',
     password: '123456',
+    role: Role.ADMIN,
+  },
+  {
+    nome: 'Darlan Oliveira',
+    email: 'darlandbo@hotmail.com',
+    password: '123456',
+    role: Role.ADMIN,
+  },
+  {
+    nome: 'Pedro Martins',
+    email: 'pedromartins.eng@hotmail.com',
+    password: '123456',
+    role: Role.ADMIN,
+  },
+  {
+    nome: 'Gabriel Alves',
+    email: 'gabrielalves@ecomp.uefs.br',
+    password: '123456',
+    role: Role.ADMIN,
+  },
+  {
+    nome: 'Thiago Jesus',
+    email: 'tcjesus@uefs.br',
+    password: '123456',
+    role: Role.ADMIN,
   },
 ]
 
@@ -17,8 +44,8 @@ export class InsertAccounts1714343577159 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     for (const account of accounts) {
       await queryRunner.manager.query(
-        `INSERT INTO account (nome, email, password) VALUES (?, ?, ?)`,
-        [account.nome, account.email, account.password],
+        `INSERT INTO account (nome, email, role, password) VALUES (?, ?, ?, ?)`,
+        [account.nome, account.email, account.role, account.password],
       )
     }
   }

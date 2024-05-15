@@ -26,7 +26,7 @@ import { EmergencyModule } from '@/emergency/EmergencyModule'
       },
     }),
 
-    AuthModule.registerDefault(JwtOptions),
+    AuthModule.registerRole(JwtOptions),
 
     HealthCheckModule,
     AccountModule,

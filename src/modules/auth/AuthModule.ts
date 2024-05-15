@@ -2,13 +2,13 @@ import { DynamicModule, Global, Module } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { PassportModule } from '@nestjs/passport'
 
-import { DefaultGuard } from '@/auth/guards/DefaultGuard'
-import { DefaultAuthService } from '@/auth/services/DefaultAuthService'
+import { RoleGuard } from '@/auth/guards/RoleGuard'
+import { RoleAuthService } from '@/auth/services/RoleAuthService'
 
 @Global()
 @Module({})
 export class AuthModule {
-  static registerDefault (jwtOptions: any): DynamicModule {
+  static registerRole(jwtOptions: any): DynamicModule {
     const { accessJwtService, refreshJwtService } = AuthModule.createJwtServices(jwtOptions)
 
     return {
@@ -17,14 +17,14 @@ export class AuthModule {
         PassportModule.register({defaultStrategy: 'jwt'})
       ],
       providers: [
-        DefaultGuard,
-        DefaultAuthService,
-        { provide: 'DefaultAccessJwtService', useValue: accessJwtService },
-        { provide: 'DefaultRefreshJwtService', useValue: refreshJwtService },
+        RoleGuard,
+        RoleAuthService,
+        { provide: 'RoleAccessJwtService', useValue: accessJwtService },
+        { provide: 'RoleRefreshJwtService', useValue: refreshJwtService },
       ],
       exports: [
-        DefaultGuard,
-        DefaultAuthService,
+        RoleGuard,
+        RoleAuthService,
       ],
     }
   }

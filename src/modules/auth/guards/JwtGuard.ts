@@ -7,7 +7,7 @@ import { Response } from 'express'
 import { AuthService } from '@/auth/services/AuthService'
 
 export abstract class JwtGuard<PAYLOAD extends object> implements CanActivate {
-  constructor (protected authService: AuthService<any>) {}
+  constructor(protected authService: AuthService<any>) { }
 
   abstract handlePayload(req: any, res: Response, payload: PAYLOAD): Promise<void>
 

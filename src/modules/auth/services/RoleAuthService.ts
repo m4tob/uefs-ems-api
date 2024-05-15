@@ -5,10 +5,10 @@ import { AuthPayload } from '@/auth/interfaces/AuthPayload'
 import { AuthService } from '@/auth/services/AuthService'
 
 @Injectable()
-export class DefaultAuthService extends AuthService<AuthPayload> {
+export class RoleAuthService extends AuthService<AuthPayload> {
   constructor (
-    @Inject('DefaultAccessJwtService') accessJwtService: JwtService,
-    @Inject('DefaultRefreshJwtService') refreshJwtService: JwtService,
+    @Inject('RoleAccessJwtService') accessJwtService: JwtService,
+    @Inject('RoleRefreshJwtService') refreshJwtService: JwtService,
   ) {
     super(accessJwtService, refreshJwtService)
   }

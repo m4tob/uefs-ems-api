@@ -25,6 +25,13 @@ const configureSwagger = (app: INestApplication) => {
     .setTitle('Emergency Management System - API')
     .setDescription('Emergency Management System - API Documentation')
     .setVersion('1.0')
+    .addBearerAuth({
+      type: 'http',
+      scheme: 'bearer',
+      bearerFormat: 'JWT'
+    },
+      'Role Access Token'
+    )
     .build()
 
   const document = SwaggerModule.createDocument(app, swaggerOptions)

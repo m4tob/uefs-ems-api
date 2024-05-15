@@ -3,6 +3,7 @@ export class ErrorMessages {
 
   static account = class {
     static get notFound() { return 'Conta não encontrada.' }
+    static get wrongPassword() { return 'Conta não encontrada.' }
   }
 
   static emergency = class {

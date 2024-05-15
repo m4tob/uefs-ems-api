@@ -1,17 +1,22 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common'
+import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common'
 import { ApiCreatedResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger'
 
 import { UdeFacade } from '@/emergency/services/UdeFacade'
 import { UdeResponse } from '@/emergency/structures/responses/UdeResponse'
 import { CreateUdeRequest } from '@/emergency/structures/requests/CreateUdeRequest'
 import { UpdateUdeRequest } from '@/emergency/structures/requests/UpdateUdeRequest'
+import { Roles } from '@/auth/decorators/Roles'
+import { Role } from '@/account/structures/enum/Role'
+import { RoleGuard } from '@/auth/guards/RoleGuard'
 
 @Controller({ version: '1', path: 'udes' })
 @ApiTags('udes')
+  @UseGuards(RoleGuard)
 export class UdeController {
   constructor(private readonly udeFacade: UdeFacade) { }
 
   @Get('/')
+  @Roles([Role.ADMIN, Role.USER])
   @ApiOperation({ summary: 'Lista as UDEs cadastradas no sistema' })
   @ApiOkResponse({ type: UdeResponse, isArray: true })
   list(): Promise<UdeResponse[]> {
@@ -19,6 +24,7 @@ export class UdeController {
   }
 
   @Get('/:id')
+  @Roles([Role.ADMIN, Role.USER])
   @ApiOperation({ summary: 'Busca uma UDE pelo seu ID' })
   @ApiParam({ name: 'id', description: 'Identificador da Ude', type: Number, example: 1 })
   @ApiOkResponse({ type: UdeResponse })
@@ -30,6 +36,7 @@ export class UdeController {
   }
 
   @Post('/')
+  @Roles([Role.ADMIN, Role.USER])
   @ApiOperation({ summary: 'Cria uma nova UDE' })
   @ApiCreatedResponse({ type: UdeResponse })
   create(
@@ -39,6 +46,7 @@ export class UdeController {
   }
 
   @Put('/:id')
+  @Roles([Role.ADMIN, Role.USER])
   @ApiOperation({ summary: 'Atualiza uma UDE' })
   @ApiParam({ name: 'id', description: 'Identificador da UDE', type: Number, example: 1 })
   @ApiOkResponse({ type: UdeResponse })
@@ -51,6 +59,7 @@ export class UdeController {
   }
 
   @Delete('/:id')
+  @Roles([Role.ADMIN, Role.USER])
   @ApiOperation({ summary: 'Deleta uma UDE' })
   @ApiParam({ name: 'id', description: 'Identificador da UDE', type: Number, example: 1 })
   @ApiOkResponse()

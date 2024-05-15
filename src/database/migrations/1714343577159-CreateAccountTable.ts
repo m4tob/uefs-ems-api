@@ -10,6 +10,7 @@ export class CreateAccountTable1714343577159 implements MigrationInterface {
       '  `nome` varchar(100) NULL,' +
       '  `email` varchar(100) NULL,' +
       '  `password` varchar(255) NULL,' +
+      '  `role` varchar(15) NULL,' +
 
       '  `created_at` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),' +
       '  `updated_at` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),' +
