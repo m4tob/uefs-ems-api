@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger'
 
 import { IsArray, IsBoolean, IsDefined, IsNumber, IsOptional } from 'class-validator'
 
-import { TipoEmergenciaModel } from '@/emergency/models/TipoEmergenciaModel'
+import { DeteccaoEmergenciaModel } from '@/emergency/models/DeteccaoEmergenciaModel'
 import { GrandezaResponse } from '@/emergency/structures/responses/GrandezaResponse'
 import { SensorResponse } from '@/emergency/structures/responses/SensorResponse'
 import { TipoEmergenciaResponse } from '@/emergency/structures/responses/TipoEmergenciaResponse'
@@ -52,11 +52,11 @@ export class DeteccaoEmergenciaResponse {
   @ApiProperty({ description: 'Monitoramentos de Grandeza', type: [MonitoramentoGrandezaResponse] })
   monitoramentos: MonitoramentoGrandezaResponse[]
 
-  static toResponse(model: TipoEmergenciaModel): DeteccaoEmergenciaResponse {
+  static toResponse(model: DeteccaoEmergenciaModel): DeteccaoEmergenciaResponse {
     return {
       id: model.id,
-      nome: model.nome,
-      grandezas: (model.grandezas || []).map((grandeza) => GrandezaResponse.toResponse(grandeza)),
+      tipoEmergencia: TipoEmergenciaResponse.toResponse(model.tipoEmergencia!!),
+      monitoramentos: [],
     } as any
   }
 }

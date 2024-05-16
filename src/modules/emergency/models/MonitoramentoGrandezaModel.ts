@@ -15,7 +15,7 @@ export class MonitoramentoGrandezaModel extends SoftDeleteBaseModel {
   @PrimaryGeneratedColumn()
   id: number
 
-  @Column({ name: 'deteccao_emergencia_id', nullable: true })
+  @Column({ name: 'deteccao_emergencia_id' })
   deteccaoEmergenciaId: number
 
   @ManyToOne(() => DeteccaoEmergenciaModel, (model) => model.id)

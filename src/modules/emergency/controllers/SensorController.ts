@@ -38,7 +38,7 @@ export class SensorController {
 
   @Post('/')
   @Roles([Role.ADMIN, Role.USER])
-  @ApiOperation({ summary: 'Cria um nova Sensor' })
+  @ApiOperation({ summary: 'Cria um novo Sensor' })
   @ApiCreatedResponse({ type: SensorResponse })
   create(
     @Body() input: CreateSensorRequest,

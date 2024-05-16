@@ -20,7 +20,7 @@ export class NotifyUdeUpdatedUseCase {
     }
 
     return new Promise((resolve, reject) => {
-      let client = connect('tcp://broker.mqtt.cool:1883');
+      let client = connect(envs.MQTT_BROKER);
 
       client.on("connect", async () => {
         const payload = NotifyUdeUpdatedPayload.parse(model);

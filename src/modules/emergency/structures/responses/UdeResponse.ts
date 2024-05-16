@@ -64,7 +64,7 @@ export class UdeResponse {
       longitude: model.longitude,
       operatingRange: model.operatingRange,
       zona: model.zona && ZonaResponse.toResponse(model.zona),
-      deteccoesEmergencia: []
+      deteccoesEmergencia: model.deteccoesEmergencia?.map(DeteccaoEmergenciaResponse.toResponse),
     }
   }
 }

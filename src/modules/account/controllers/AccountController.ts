@@ -11,8 +11,8 @@ import { Account } from '@/auth/interfaces/AuthPayload'
 import { Roles } from '@/auth/decorators/Roles'
 import { Role } from '@/account/structures/enum/Role'
 
-@Controller({ version: '1', path: 'accounts' })
-@ApiTags('accounts')
+@Controller({ version: '1', path: 'usuarios' })
+@ApiTags('usuarios')
 export class AccountController {
   constructor(
     private readonly accountFacade: AccountFacade
