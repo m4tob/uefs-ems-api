@@ -12,6 +12,9 @@ export class AccountResponse {
   @ApiProperty({ description: 'Account name', example: 'Matheus Borges' })
   nome: string
 
+  @ApiProperty({ description: 'Account name', example: 'matob@live.com' })
+  email: string
+
   @ApiProperty({ description: 'Account email', required: false, example: 'ADMIN' })
   role?: string
 
@@ -25,6 +28,7 @@ export class AccountResponse {
     return {
       id: model.id,
       nome: model.nome,
+      email: model.email,
       role: model.role,
       createdAt: model.createdAt,
       updatedAt: model.updatedAt,

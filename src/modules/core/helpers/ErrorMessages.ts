@@ -2,8 +2,8 @@ export class ErrorMessages {
   static get generic() { return 'Tivemos um problema e não foi possível processar sua solicitação. Por favor tente novamente.' }
 
   static account = class {
-    static get notFound() { return 'Conta não encontrada.' }
-    static get wrongPassword() { return 'Conta não encontrada.' }
+    static get notFound() { return 'Usuário não encontrado.' }
+    static get wrongPassword() { return 'Usuário não encontrado.' }
   }
 
   static emergency = class {

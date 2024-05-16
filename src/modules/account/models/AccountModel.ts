@@ -33,4 +33,28 @@ export class AccountModel extends SoftDeleteBaseModel {
 
   @Column({ type: 'varchar', length: 15, nullable: true })
   role?: Role
+
+  beforeSave() {
+    if (this.password) {
+      this.password = AccountModel.hashPassword(this.password)
+    }
+  }
+
+  checkPassword(plainPassword: string): boolean {
+    return AccountModel.checkPassword(plainPassword, this.password)
+  }
+
+  static hashPassword(plainPassword: string): string {
+    const bcrypt = require('bcrypt');
+    const saltRounds = 13;
+
+    const salt = bcrypt.genSaltSync(saltRounds);
+    return bcrypt.hashSync(plainPassword, salt);
+  }
+
+  static checkPassword(plainPassword: string, storedPassword: string): boolean {
+    const bcrypt = require('bcrypt');
+    const hash = AccountModel.hashPassword(plainPassword);
+    return bcrypt.compareSync(storedPassword, hash);
+  }
 }

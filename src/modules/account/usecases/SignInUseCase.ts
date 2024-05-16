@@ -21,7 +21,7 @@ export class SignInUseCase {
       throw new UnauthorizedException(ErrorMessages.account.notFound)
     }
 
-    if (request.password !== account.password) {
+    if (account.checkPassword(request.password)) {
       throw new UnauthorizedException(ErrorMessages.account.wrongPassword)
     }
 

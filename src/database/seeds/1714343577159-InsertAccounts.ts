@@ -1,3 +1,4 @@
+import { AccountModel } from '@/account/models/AccountModel';
 import { Role } from '@/account/structures/enum/Role';
 import { MigrationInterface, QueryRunner } from 'typeorm'
 
@@ -34,7 +35,7 @@ const accounts: { nome: string; email: string; password: string, role: Role }[] 
   },
   {
     nome: 'Thiago Jesus',
-    email: 'tcjesus@uefs.br',
+    email: 'thiagocj@gmail.com',
     password: '123456',
     role: Role.ADMIN,
   },
@@ -43,9 +44,10 @@ const accounts: { nome: string; email: string; password: string, role: Role }[] 
 export class InsertAccounts1714343577159 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     for (const account of accounts) {
+      const passwordHash = AccountModel.hashPassword(account.password)
       await queryRunner.manager.query(
         `INSERT INTO account (nome, email, role, password) VALUES (?, ?, ?, ?)`,
-        [account.nome, account.email, account.role, account.password],
+        [account.nome, account.email, account.role, passwordHash],
       )
     }
   }
