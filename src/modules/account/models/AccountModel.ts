@@ -54,7 +54,6 @@ export class AccountModel extends SoftDeleteBaseModel {
 
   static checkPassword(plainPassword: string, storedPassword: string): boolean {
     const bcrypt = require('bcrypt');
-    const hash = AccountModel.hashPassword(plainPassword);
-    return bcrypt.compareSync(storedPassword, hash);
+    return bcrypt.compareSync(plainPassword, storedPassword);
   }
 }

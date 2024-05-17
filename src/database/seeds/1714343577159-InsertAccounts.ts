@@ -6,37 +6,37 @@ const accounts: { nome: string; email: string; password: string, role: Role }[] 
   {
     nome: 'Matheus Borges',
     email: 'matob@live.com',
-    password: '123456',
+    password: 'uefspgcc2024',
     role: Role.ADMIN,
   },
   {
     nome: 'Inácio Borges',
     email: 'inacioob@gmail.com',
-    password: '123456',
+    password: 'uefspgcc2024',
     role: Role.ADMIN,
   },
   {
     nome: 'Darlan Oliveira',
     email: 'darlandbo@hotmail.com',
-    password: '123456',
+    password: 'uefspgcc2024',
     role: Role.ADMIN,
   },
   {
     nome: 'Pedro Martins',
     email: 'pedromartins.eng@hotmail.com',
-    password: '123456',
+    password: 'uefspgcc2024',
     role: Role.ADMIN,
   },
   {
     nome: 'Gabriel Alves',
     email: 'gabrielalves@ecomp.uefs.br',
-    password: '123456',
+    password: 'uefspgcc2024',
     role: Role.ADMIN,
   },
   {
     nome: 'Thiago Jesus',
     email: 'thiagocj@gmail.com',
-    password: '123456',
+    password: 'uefspgcc2024',
     role: Role.ADMIN,
   },
 ]

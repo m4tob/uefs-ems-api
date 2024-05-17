@@ -21,7 +21,8 @@ export class SignInUseCase {
       throw new UnauthorizedException(ErrorMessages.account.notFound)
     }
 
-    if (account.checkPassword(request.password)) {
+    const wrongPassword = !await account.checkPassword(request.password)
+    if (wrongPassword) {
       throw new UnauthorizedException(ErrorMessages.account.wrongPassword)
     }
 

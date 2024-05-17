@@ -64,9 +64,9 @@ export class AccountController {
     return this.accountFacade.delete(id)
   }
 
-  @Post('/signin')
+  @Post('/sign-in')
   @ApiOperation({ summary: 'Sign in' })
-  @ApiCreatedResponse({ type: SignInResponse })
+  @ApiOkResponse({ type: SignInResponse })
   signIn(
     @Body() request: SignInRequest
   ): Promise<SignInResponse> {
