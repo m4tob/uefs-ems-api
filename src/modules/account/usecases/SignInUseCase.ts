@@ -37,12 +37,12 @@ export class SignInUseCase {
       }
     }
 
-    const bearerToken = await this.defaultAuthService.generateAccessToken(accountAuthData)
+    const accessToken = await this.defaultAuthService.generateAccessToken(accountAuthData)
     const refreshToken = await this.defaultAuthService.generateRefreshToken(accountAuthData)
 
     return {
       account: AccountResponse.toResponse(account),
-      bearerToken,
+      accessToken,
       refreshToken,
     }
   }

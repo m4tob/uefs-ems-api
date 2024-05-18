@@ -32,7 +32,7 @@ export abstract class JwtGuard<PAYLOAD extends object> implements CanActivate {
       }
 
       if (error.name === 'TokenExpiredError') {
-        const refreshToken: string = req.get('x-refresh-token') || ''
+        const refreshToken: string = req.get('X-Refresh-Token') || ''
 
         if (refreshToken) {
           await this.authService.verifyRefreshToken(refreshToken)

@@ -1,18 +1,19 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common'
+import { Body, Controller, Delete, Get, Param, Post, Put, Response, UseGuards } from '@nestjs/common'
 import { ApiBearerAuth, ApiCreatedResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger'
 
 import { AccountParam } from '@/account/helpers/AccountParam'
 import { AccountFacade } from '@/account/services/AccountFacade'
+import { Role } from '@/account/structures/enum/Role'
+import { CreateAccountRequest } from '@/account/structures/requests/CreateAccountRequest'
 import { SignInRequest } from '@/account/structures/requests/SignInRequest'
+import { UpdateAccountRequest } from '@/account/structures/requests/UpdateAccountRequest'
+import { AccountResponse } from '@/account/structures/responses/AccountResponse'
 import { MyAccountResponse } from '@/account/structures/responses/MyAccountResponse'
 import { SignInResponse } from '@/account/structures/responses/SignInResponse'
+import { Roles } from '@/auth/decorators/Roles'
 import { RoleGuard } from '@/auth/guards/RoleGuard'
 import { Account } from '@/auth/interfaces/AuthPayload'
-import { Roles } from '@/auth/decorators/Roles'
-import { Role } from '@/account/structures/enum/Role'
-import { AccountResponse } from '@/account/structures/responses/AccountResponse'
-import { CreateAccountRequest } from '@/account/structures/requests/CreateAccountRequest'
-import { UpdateAccountRequest } from '@/account/structures/requests/UpdateAccountRequest'
+import { Response as Res } from 'express'
 
 @Controller({ version: '1', path: 'usuarios' })
 @ApiTags('usuarios')
@@ -75,6 +76,24 @@ export class AccountController {
     @Body() request: SignInRequest
   ): Promise<SignInResponse> {
     return this.accountFacade.signIn(request)
+  }
+
+  @Post('/refresh-token')
+  @UseGuards(RoleGuard)
+  @Roles([Role.ADMIN, Role.USER, Role.GUEST])
+  @ApiOperation({ summary: 'Refresh Token' })
+  @ApiOkResponse({ type: SignInResponse })
+  refreshToken(
+    @Response() res: Res,
+    @AccountParam() account: Account,
+  ): void {
+    const response = {
+      account,
+      accessToken: res.get('Authorization')?.replace('Bearer ', ''),
+      refreshToken: res.get('X-Refresh-Token')?.replace('Bearer ', ''),
+    }
+
+    res.json(response)
   }
 
   @Get('/me')

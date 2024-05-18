@@ -11,7 +11,7 @@ export class SignInResponse {
     example:
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxOTE2MjM5MDIyfQ.et89zLGbgesNcyXkxkkfA_RfnoL2VGItMczChu_h2Kk',
   })
-  bearerToken?: string
+  accessToken?: string
 
   @ApiProperty({
     description: 'Refresh token',

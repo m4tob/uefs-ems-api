@@ -17,7 +17,9 @@ export abstract class AuthService<PAYLOAD extends object> {
   }
 
   async verifyRefreshToken (refreshToken: string): Promise<PAYLOAD> {
-    return this.refreshJwtService.verify(refreshToken)
+    const pattern = /^(Bearer )(.*)$/i
+    const token = pattern.test(refreshToken) ? refreshToken.replace(pattern, '$2') : refreshToken
+    return this.refreshJwtService.verify(token)
   }
 
   async generateRefreshToken (payload: PAYLOAD): Promise<string> {
