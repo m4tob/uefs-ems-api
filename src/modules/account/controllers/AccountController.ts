@@ -22,6 +22,7 @@ export class AccountController {
   ) { }
 
   @Get('/')
+  @UseGuards(RoleGuard)
   @Roles([Role.ADMIN])
   @ApiOperation({ summary: 'Lista os Usuários cadastrados no sistema' })
   @ApiOkResponse({ type: AccountResponse, isArray: true })
@@ -30,6 +31,7 @@ export class AccountController {
   }
 
   @Post('/')
+  @UseGuards(RoleGuard)
   @Roles([Role.ADMIN])
   @ApiOperation({ summary: 'Cria um novo Usuário' })
   @ApiCreatedResponse({ type: AccountResponse })
@@ -40,6 +42,7 @@ export class AccountController {
   }
 
   @Put('/:id')
+  @UseGuards(RoleGuard)
   @Roles([Role.ADMIN])
   @ApiOperation({ summary: 'Atualiza um Usuário' })
   @ApiParam({ name: 'id', description: 'Identificador do Usuário', type: Number, example: 1 })
@@ -53,6 +56,7 @@ export class AccountController {
   }
 
   @Delete('/:id')
+  @UseGuards(RoleGuard)
   @Roles([Role.ADMIN])
   @ApiOperation({ summary: 'Deleta um Usuário' })
   @ApiParam({ name: 'id', description: 'Identificador do Usuário', type: Number, example: 1 })
@@ -75,7 +79,7 @@ export class AccountController {
 
   @Get('/me')
   @UseGuards(RoleGuard)
-  @Roles([Role.ADMIN])
+  @Roles([Role.ADMIN, Role.USER, Role.GUEST])
   @ApiBearerAuth('Role Access Token')
   @ApiOperation({ summary: 'Get current Account info' })
   @ApiOkResponse({ status: 200, type: MyAccountResponse })
@@ -86,7 +90,8 @@ export class AccountController {
   }
 
   @Get('/:id')
-  @Roles([Role.ADMIN])
+  @UseGuards(RoleGuard)
+  @Roles([Role.ADMIN, Role.USER, Role.GUEST])
   @ApiOperation({ summary: 'Busca um Usuário pelo seu ID' })
   @ApiParam({ name: 'id', description: 'Identificador do Usuário', type: Number, example: 1 })
   @ApiOkResponse({ type: AccountResponse })
