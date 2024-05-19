@@ -19,7 +19,11 @@ export class MonitoramentoGrandezaModel extends SoftDeleteBaseModel {
   @Column({ name: 'deteccao_emergencia_id' })
   deteccaoEmergenciaId: number
 
-  @ManyToOne(() => DeteccaoEmergenciaModel, (model) => model.id)
+  @ManyToOne(() => DeteccaoEmergenciaModel, (model) => model.id, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+    orphanedRowAction: "delete"
+  })
   @JoinColumn({ name: 'deteccao_emergencia_id' })
   deteccaoEmergencia?: DeteccaoEmergenciaModel
 

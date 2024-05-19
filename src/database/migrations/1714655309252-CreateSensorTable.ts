@@ -35,7 +35,7 @@ export class CreateSensorTable1714655309252 implements MigrationInterface {
       ') ENGINE=InnoDB'
     );
 
-    await queryRunner.query('ALTER TABLE `especificacao_grandeza` ADD CONSTRAINT `FK_e61d23b87f73a985ff054e8aa5d` FOREIGN KEY (`sensor_id`) REFERENCES `sensor`(`id`) ON DELETE CASCADE ON UPDATE NO ACTION');
+    await queryRunner.query('ALTER TABLE `especificacao_grandeza` ADD CONSTRAINT `FK_e61d23b87f73a985ff054e8aa5d` FOREIGN KEY (`sensor_id`) REFERENCES `sensor`(`id`) ON DELETE CASCADE ON UPDATE CASCADE');
     await queryRunner.query('ALTER TABLE `especificacao_grandeza` ADD CONSTRAINT `FK_dc3e717bb039ad1e350ec3305a6` FOREIGN KEY (`grandeza_id`) REFERENCES `grandeza`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION');
   }
 

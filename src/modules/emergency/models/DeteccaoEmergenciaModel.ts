@@ -18,7 +18,11 @@ export class DeteccaoEmergenciaModel extends SoftDeleteBaseModel {
   @Column({ name: 'ude_id' })
   udeId: number
 
-  @ManyToOne(() => UdeModel, (model) => model.id)
+  @ManyToOne(() => UdeModel, (model) => model.id, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+    orphanedRowAction: "delete"
+  })
   @JoinColumn({ name: 'ude_id' })
   ude?: UdeModel
 

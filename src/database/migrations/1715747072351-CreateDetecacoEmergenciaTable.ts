@@ -32,10 +32,10 @@ export class CreateDeteccaoEmergenciaTable1715747072351 implements MigrationInte
             '  PRIMARY KEY (`id`)' +
             ')ENGINE=InnoDB'
         );
-        await queryRunner.query('ALTER TABLE `monitoramento_grandeza` ADD CONSTRAINT `FK_5907770892cb2bb624b1e415c5f` FOREIGN KEY (`deteccao_emergencia_id`) REFERENCES `deteccao_emergencia`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION');
+        await queryRunner.query('ALTER TABLE `monitoramento_grandeza` ADD CONSTRAINT `FK_5907770892cb2bb624b1e415c5f` FOREIGN KEY (`deteccao_emergencia_id`) REFERENCES `deteccao_emergencia`(`id`) ON DELETE CASCADE ON UPDATE CASCADE');
         await queryRunner.query('ALTER TABLE `monitoramento_grandeza` ADD CONSTRAINT `FK_5bfc0985da0c1e99d0374c5f216` FOREIGN KEY (`sensor_id`) REFERENCES `sensor`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION');
         await queryRunner.query('ALTER TABLE `monitoramento_grandeza` ADD CONSTRAINT `FK_a6a2ddece5370432b36ba49388d` FOREIGN KEY (`grandeza_id`) REFERENCES `grandeza`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION');
-        await queryRunner.query('ALTER TABLE `deteccao_emergencia` ADD CONSTRAINT `FK_d38067f35adba07422588590e10` FOREIGN KEY (`ude_id`) REFERENCES `ude`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION');
+        await queryRunner.query('ALTER TABLE `deteccao_emergencia` ADD CONSTRAINT `FK_d38067f35adba07422588590e10` FOREIGN KEY (`ude_id`) REFERENCES `ude`(`id`) ON DELETE CASCADE ON UPDATE CASCADE');
         await queryRunner.query('ALTER TABLE `deteccao_emergencia` ADD CONSTRAINT `FK_72f567b651529f9200e92fa485b` FOREIGN KEY (`tipo_emergencia_id`) REFERENCES `tipo_emergencia`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION');
     }
 

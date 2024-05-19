@@ -19,7 +19,11 @@ export class EspecificacaoGrandezaModel extends SoftDeleteBaseModel {
   @Column({ name: 'sensor_id' })
   sensorId: number
 
-  @ManyToOne(() => SensorModel, (model) => model.especificacoes, { onDelete: 'CASCADE' })
+  @ManyToOne(() => SensorModel, (model) => model.especificacoes, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+    orphanedRowAction: "delete"
+  })
   @JoinColumn({ name: 'sensor_id' })
   sensor?: SensorModel
 

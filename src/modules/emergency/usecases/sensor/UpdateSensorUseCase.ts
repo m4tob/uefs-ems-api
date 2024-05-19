@@ -37,6 +37,8 @@ export class UpdateSensorUseCase {
       })
     })
 
+    console.log(especificacoes)
+
     model.modelo = modelo
     model.descricao = descricao
     model.especificacoes = especificacoes
