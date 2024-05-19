@@ -4,6 +4,7 @@ import { SoftDeleteBaseModel } from '@/core/models/SoftDeleteBaseModel'
 import { GrandezaModel } from '@/emergency/models/GrandezaModel'
 import { SensorModel } from '@/emergency/models/SensorModel'
 import { TipoSinalEnum } from '@/emergency/structures/enum/TipoSinalEnum'
+import { ColumnNumericTransformer } from '@/core/repositories/ColumnNumericTransformer'
 
 @Entity('especificacao_grandeza')
 export class EspecificacaoGrandezaModel extends SoftDeleteBaseModel {
@@ -29,10 +30,24 @@ export class EspecificacaoGrandezaModel extends SoftDeleteBaseModel {
   @JoinColumn({ name: 'grandeza_id' })
   grandeza?: GrandezaModel
 
-  @Column({ name: 'valor_minimo', type: 'decimal', precision: 8, scale: 3, nullable: true })
+  @Column({
+    name: 'valor_minimo',
+    type: 'decimal',
+    precision: 8,
+    scale: 3,
+    nullable: true,
+    transformer: new ColumnNumericTransformer()
+  })
   valorMinimo?: number
 
-  @Column({ name: 'valor_maximo', type: 'decimal', precision: 8, scale: 3, nullable: true })
+  @Column({
+    name: 'valor_maximo',
+    type: 'decimal',
+    precision: 8,
+    scale: 3,
+    nullable: true,
+    transformer: new ColumnNumericTransformer()
+  })
   valorMaximo?: number
 
   @Column({ type: 'varchar', length: 15, nullable: true })

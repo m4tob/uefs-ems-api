@@ -4,6 +4,7 @@ import { SoftDeleteBaseModel } from '@/core/models/SoftDeleteBaseModel'
 import { DeteccaoEmergenciaModel } from '@/emergency/models/DeteccaoEmergenciaModel'
 import { GrandezaModel } from '@/emergency/models/GrandezaModel'
 import { SensorModel } from '@/emergency/models/SensorModel'
+import { ColumnNumericTransformer } from '@/core/repositories/ColumnNumericTransformer'
 
 @Entity('monitoramento_grandeza')
 export class MonitoramentoGrandezaModel extends SoftDeleteBaseModel {
@@ -36,10 +37,24 @@ export class MonitoramentoGrandezaModel extends SoftDeleteBaseModel {
   @JoinColumn({ name: 'grandeza_id' })
   grandeza?: GrandezaModel
 
-  @Column({ name: 'threshold_minimo', type: 'decimal', precision: 8, scale: 3, nullable: true })
+  @Column({
+    name: 'threshold_minimo',
+    type: 'decimal',
+    precision: 8,
+    scale: 3,
+    nullable: true,
+    transformer: new ColumnNumericTransformer()
+  })
   thresholdMinimo?: number
 
-  @Column({ name: 'threshold_maximo', type: 'decimal', precision: 8, scale: 3, nullable: true })
+  @Column({
+    name: 'threshold_maximo',
+    type: 'decimal',
+    precision: 8,
+    scale: 3,
+    nullable: true,
+    transformer: new ColumnNumericTransformer()
+  })
   thresholdMaximo?: number
 
   @Column({ type: 'boolean', nullable: true })
