@@ -60,7 +60,7 @@ export class UpdateUdeUseCase {
           grandeza: new GrandezaModel({ id: grandezaId.id }),
           thresholdMinimo,
           thresholdMaximo,
-          ativo
+          ativo: ativo ?? true,
         })
       })
 

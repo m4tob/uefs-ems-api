@@ -1,7 +1,8 @@
 import { EspecificacaoGrandezaRequest } from '@/emergency/structures/requests/EspecificacaoGrandezaRequest'
 import { ApiProperty } from '@nestjs/swagger'
+import { Type } from 'class-transformer'
 
-import { IsArray, IsDefined, IsOptional, IsString, MaxLength } from 'class-validator'
+import { IsArray, IsDefined, IsOptional, IsString, MaxLength, ValidateNested } from 'class-validator'
 
 export class CreateSensorRequest {
   @IsDefined()
@@ -23,6 +24,8 @@ export class CreateSensorRequest {
 
   @IsDefined()
   @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => EspecificacaoGrandezaRequest)
   @ApiProperty({
     description: 'Lista de Especificações de Grandeza associadas ao Sensor',
     type: [EspecificacaoGrandezaRequest],

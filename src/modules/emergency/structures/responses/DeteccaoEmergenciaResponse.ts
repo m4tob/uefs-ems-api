@@ -6,6 +6,7 @@ import { DeteccaoEmergenciaModel } from '@/emergency/models/DeteccaoEmergenciaMo
 import { GrandezaResponse } from '@/emergency/structures/responses/GrandezaResponse'
 import { SensorResponse } from '@/emergency/structures/responses/SensorResponse'
 import { TipoEmergenciaResponse } from '@/emergency/structures/responses/TipoEmergenciaResponse'
+import { MonitoramentoGrandezaModel } from '@/emergency/models/MonitoramentoGrandezaModel'
 
 export class MonitoramentoGrandezaResponse {
   @IsDefined()
@@ -35,6 +36,17 @@ export class MonitoramentoGrandezaResponse {
   @IsBoolean()
   @ApiProperty({ description: 'Indica se a detecção está ativa', example: true })
   ativo?: Boolean
+
+  static toResponse(model: MonitoramentoGrandezaModel): MonitoramentoGrandezaResponse {
+    return {
+      id: model.id,
+      sensor: SensorResponse.toResponse(model.sensor!!),
+      grandeza: GrandezaResponse.toResponse(model.grandeza!!),
+      thresholdMinimo: model.thresholdMinimo,
+      thresholdMaximo: model.thresholdMaximo,
+      ativo: model.ativo,
+    } as any
+  }
 }
 
 export class DeteccaoEmergenciaResponse {
@@ -56,7 +68,7 @@ export class DeteccaoEmergenciaResponse {
     return {
       id: model.id,
       tipoEmergencia: TipoEmergenciaResponse.toResponse(model.tipoEmergencia!!),
-      monitoramentos: [],
+      monitoramentos: model.monitoramentosGrandeza.map((monitoramento) => MonitoramentoGrandezaResponse.toResponse(monitoramento)),
     } as any
   }
 }

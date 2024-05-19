@@ -1,7 +1,8 @@
 import { GrandezaIdRequest } from "@/emergency/structures/requests/GrandezaIdRequest"
 import { SensorIdRequest } from "@/emergency/structures/requests/SensorIdRequest"
 import { ApiProperty } from "@nestjs/swagger"
-import { IsBoolean, IsDefined, IsNumber, IsOptional } from "class-validator"
+import { Type } from "class-transformer"
+import { IsBoolean, IsDefined, IsNumber, IsOptional, ValidateNested } from "class-validator"
 
 export class MonitoramentoGrandezaRequest {
   @IsOptional()
@@ -10,10 +11,14 @@ export class MonitoramentoGrandezaRequest {
   id?: number
 
   @IsDefined()
+  @ValidateNested({ each: true })
+  @Type(() => SensorIdRequest)
   @ApiProperty({ description: 'Sensor responsável pelo monitoramento', type: SensorIdRequest })
   sensor: SensorIdRequest
 
   @IsDefined()
+  @ValidateNested({ each: true })
+  @Type(() => GrandezaIdRequest)
   @ApiProperty({ description: 'Grandeza monitorada', type: GrandezaIdRequest })
   grandeza: GrandezaIdRequest
 
@@ -27,7 +32,7 @@ export class MonitoramentoGrandezaRequest {
   @ApiProperty({ description: 'Threshold Máximo', required: false, example: 60.0 })
   thresholdMaximo?: number
 
-  @IsDefined()
+  @IsOptional()
   @IsBoolean()
   @ApiProperty({ description: 'Indica se a detecção está ativa', example: true })
   ativo?: Boolean

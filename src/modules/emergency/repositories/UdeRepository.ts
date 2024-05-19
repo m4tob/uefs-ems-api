@@ -13,6 +13,7 @@ export class UdeRepository extends DatabaseRepository<UdeModel, number> {
       { field: 'ude.zona' },
       { field: 'ude.deteccoesEmergencia', alias: 'd' },
       { field: 'd.tipoEmergencia', alias: 'tp' },
+      { field: 'tp.grandezas', alias: 'g' },
       { field: 'd.monitoramentosGrandeza', alias: 'm' },
       { field: 'm.sensor' },
       { field: 'm.grandeza' },

@@ -1,7 +1,8 @@
 import { GrandezaIdRequest } from '@/emergency/structures/requests/GrandezaIdRequest'
 import { ApiProperty } from '@nestjs/swagger'
+import { Type } from 'class-transformer'
 
-import { IsArray, IsDefined, IsOptional, IsString, MaxLength } from 'class-validator'
+import { IsArray, IsDefined, IsOptional, IsString, MaxLength, ValidateNested } from 'class-validator'
 
 export class CreateTipoEmergenciaRequest {
   @IsDefined()
@@ -12,6 +13,8 @@ export class CreateTipoEmergenciaRequest {
 
   @IsOptional()
   @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => GrandezaIdRequest)
   @ApiProperty({
     description: 'Lista de das Grandezas associadas ao Tipo de Emergência',
     type: [GrandezaIdRequest],

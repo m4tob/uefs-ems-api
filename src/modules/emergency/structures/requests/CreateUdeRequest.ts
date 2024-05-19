@@ -2,7 +2,8 @@ import { TipoUdeEnum } from "@/emergency/structures/enum/TipoUdeEnum"
 import { DeteccaoEmergenciaRequest } from "@/emergency/structures/requests/DeteccaoEmergenciaRequest"
 import { ZonaIdRequest } from "@/emergency/structures/requests/ZonaIdRequest"
 import { ApiProperty } from "@nestjs/swagger"
-import { IsArray, IsDefined, IsEnum, IsNumber, IsOptional, IsString, MaxLength } from "class-validator"
+import { Type } from "class-transformer"
+import { IsArray, IsDefined, IsEnum, IsNumber, IsOptional, IsString, MaxLength, ValidateNested } from "class-validator"
 
 export class CreateUdeRequest {
   @IsDefined()
@@ -23,26 +24,30 @@ export class CreateUdeRequest {
   mac: string
 
   @IsDefined()
-  @IsNumber()
+  @IsNumber({ allowNaN: false, maxDecimalPlaces: 8 })
   @ApiProperty({ description: 'Latitude da UDE', example: -12.198102 })
   latitude: number
 
   @IsDefined()
-  @IsNumber()
+  @IsNumber({ allowNaN: false, maxDecimalPlaces: 8 })
   @ApiProperty({ description: 'Longitude da UDE', example: -38.9727037 })
   longitude: number
 
   @IsOptional()
-  @IsNumber()
+  @IsNumber({ allowNaN: false, maxDecimalPlaces: 3 })
   @ApiProperty({ description: 'Raio de operação da UDE', required: false, example: 100 })
   operatingRange?: number
 
   @IsDefined()
+  @ValidateNested()
+  @Type(() => ZonaIdRequest)
   @ApiProperty({ description: 'Zona de atuação da UDE', required: false, type: ZonaIdRequest })
   zona: ZonaIdRequest
 
   @IsDefined()
   @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => DeteccaoEmergenciaRequest)
   @ApiProperty({
     description: 'Lista dos Configurações de Detecção de Emergências',
     type: [DeteccaoEmergenciaRequest],
