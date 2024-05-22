@@ -59,4 +59,12 @@ export class Environment {
   static get MQTT_TOPIC_UPDATE_UDE() {
     return process.env.MQTT_TOPIC_UPDATE_UDE || 'update_ude'
   }
+
+  static get MQTT_TOPIC_REQUEST_DATA() {
+    return process.env.MQTT_TOPIC_REQUEST_DATA || 'request_realtime_data'
+  }
+
+  static get MQTT_TOPIC_RESPONSE_DATA() {
+    return process.env.MQTT_TOPIC_RESPONSE_DATA || 'response_realtime_data'
+  }
 }

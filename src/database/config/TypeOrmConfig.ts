@@ -10,6 +10,7 @@ import { SensorModel } from '@/emergency/models/SensorModel'
 import { TipoEmergenciaModel } from '@/emergency/models/TipoEmergenciaModel'
 import { UdeModel } from '@/emergency/models/UdeModel'
 import { ZonaModel } from '@/emergency/models/ZonaModel'
+import { RegistroMonitoramentoModel } from '@/emergency/models/RegistroMonitoramentoModel'
 
 export default {
   type: 'mysql',
@@ -37,6 +38,7 @@ export default {
     UdeModel,
     DeteccaoEmergenciaModel,
     MonitoramentoGrandezaModel,
+    RegistroMonitoramentoModel,
   ],
   bigNumberStrings: false,
   timezone: '+00:00',

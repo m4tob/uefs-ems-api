@@ -5,7 +5,7 @@ import { Environment as envs } from '@/Environment';
 import { ErrorMessages } from '@/core/helpers/ErrorMessages';
 import { UdeRepository } from '@/emergency/repositories/UdeRepository';
 import { NotifyUdeUpdatedPayload } from '@/emergency/structures/payloads/NotifyUdeUpdatedPayload';
-import { connect } from "mqtt"; // import connect from mqtt
+import { connect } from "mqtt"
 
 @Injectable()
 export class NotifyUdeUpdatedUseCase {
@@ -20,7 +20,7 @@ export class NotifyUdeUpdatedUseCase {
     }
 
     return new Promise((resolve, reject) => {
-      let client = connect(envs.MQTT_BROKER);
+      const client = connect(envs.MQTT_BROKER);
 
       client.on("connect", async () => {
         const payload = NotifyUdeUpdatedPayload.parse(model);

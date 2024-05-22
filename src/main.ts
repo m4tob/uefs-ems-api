@@ -10,6 +10,7 @@ import { INestApplication, ValidationPipe } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import * as Sentry from '@sentry/node'
+import { connect } from "mqtt"
 
 import { AppModule } from '@/AppModule'
 import { AllExceptionFilter } from '@/core/helpers/AllExceptionFilter'
@@ -19,6 +20,7 @@ import { SentryConfig } from '@/config/SentryConfig'
 import * as bodyParser from 'body-parser'
 import helmet from 'helmet'
 import { initializeTransactionalContext } from 'typeorm-transactional'
+import { MonitoramentoFacade } from '@/emergency/services/MonitoramentoFacade'
 
 const configureSwagger = (app: INestApplication) => {
   const swaggerOptions = new DocumentBuilder()
@@ -38,13 +40,46 @@ const configureSwagger = (app: INestApplication) => {
   SwaggerModule.setup('docs', app, document)
 }
 
-async function bootstrap () {
+const configureMqtt = (app: INestApplication) => {
+  const client = connect(envs.MQTT_BROKER);
+  const monitoramentoFacade = app.get<MonitoramentoFacade>(MonitoramentoFacade)
+
+  client.on("connect", async () => {
+    client.subscribe(envs.MQTT_TOPIC_RESPONSE_DATA, (error) => {
+      if (!error) {
+        console.log('Subscribed to MQTT topic: ', envs.MQTT_TOPIC_RESPONSE_DATA)
+      }
+    });
+  });
+
+  client.on("message", (topic, message) => {
+    if (topic === envs.MQTT_TOPIC_RESPONSE_DATA) {
+      try {
+        const payload = JSON.parse(message.toString())
+        monitoramentoFacade.process(payload)
+      } catch (error) {
+        console.log(`Error processing message to topic: ${envs.MQTT_TOPIC_RESPONSE_DATA}`)
+        console.log(`Message: ${message.toString()}`)
+        console.log(error)
+      }
+    }
+  });
+
+  client.on("error", async (error) => {
+    if (error) {
+      console.error(error);
+    }
+  });
+}
+
+async function bootstrap() {
   Sentry.init(SentryConfig)
   initializeTransactionalContext()
 
   const app = await NestFactory.create(AppModule)
 
   configureSwagger(app)
+  configureMqtt(app)
 
   app.use(helmet())
 
