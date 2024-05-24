@@ -50,6 +50,7 @@ export class UpdateUdeUseCase {
           grandeza: grandezaId,
           thresholdMinimo,
           thresholdMaximo,
+          taxaAmostragem,
           taxaVariacaoMinima,
           ativo
         } = monitoramento
@@ -61,6 +62,7 @@ export class UpdateUdeUseCase {
           grandeza: new GrandezaModel({ id: grandezaId.id }),
           thresholdMinimo,
           thresholdMaximo,
+          taxaAmostragem,
           taxaVariacaoMinima,
           ativo: ativo ?? true,
         })

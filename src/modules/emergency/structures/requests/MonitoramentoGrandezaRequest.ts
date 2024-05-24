@@ -33,6 +33,11 @@ export class MonitoramentoGrandezaRequest {
   thresholdMaximo?: number
 
   @IsDefined()
+  @IsNumber({ allowNaN: false })
+  @ApiProperty({ description: 'Taxa de Amostragem em segundos do sensoriamento', example: 5 })
+  taxaAmostragem: number
+
+  @IsDefined()
   @IsNumber({ allowNaN: false, maxDecimalPlaces: 3 })
   @ApiProperty({ description: 'Taxa de Variação para considerar um novo valor monitorado', example: 0.01 })
   taxaVariacaoMinima: number

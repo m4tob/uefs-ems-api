@@ -5,15 +5,16 @@ import { UdeModel } from '@/emergency/models/UdeModel'
 import { TipoUdeEnum } from '@/emergency/structures/enum/TipoUdeEnum'
 
 class SensorAtivoPayload {
-  modelo: string
-  grandeza: string
+  model: string
+  variable: string
 }
 
 class EmergenciaPayload {
   [key: string]: {
-    thresholdMinimo: number | null
-    thresholdMaximo: number | null
-    taxaVariacaoMinima: number
+    min_threshold: number | null
+    max_threshold: number | null
+    sample_rate: number | null
+    min_variation_rate: number
   }
 }
 
@@ -23,13 +24,13 @@ class EmergenciasPayload {
 
 export class NotifyUdeUpdatedPayload {
   id: number
-  tipo: TipoUdeEnum
+  type: TipoUdeEnum
   mac: string
   latitude: number
   longitude: number
-  zona: number
-  sensoresAtivos: SensorAtivoPayload[]
-  emergencias: EmergenciasPayload
+  zone: number
+  active_sensors: SensorAtivoPayload[]
+  emergencies: EmergenciasPayload
 
   static parse(model: UdeModel): NotifyUdeUpdatedPayload {
     const sensoresAtivos = model.deteccoesEmergencia
@@ -54,9 +55,10 @@ export class NotifyUdeUpdatedPayload {
             let mKey = monitoramento.grandeza?.nome.toLowerCase() || `grandeza_${mIndex}`
             mKey = mKey.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
             mAcc[mKey] = {
-              thresholdMinimo: monitoramento.thresholdMinimo || null,
-              thresholdMaximo: monitoramento.thresholdMaximo || null,
-              taxaVariacaoMinima: monitoramento.taxaVariacaoMinima,
+              min_threshold: monitoramento.thresholdMinimo || null,
+              max_threshold: monitoramento.thresholdMaximo || null,
+              sample_rate: monitoramento.taxaAmostragem,
+              min_variation_rate: monitoramento.taxaVariacaoMinima,
             }
             return mAcc
           }, {} as EmergenciaPayload)
@@ -74,13 +76,13 @@ export class NotifyUdeUpdatedPayload {
 
     return {
       id: model.id,
-      tipo: model.tipo,
+      type: model.tipo,
       mac: model.mac,
       latitude: model.latitude,
       longitude: model.longitude,
-      zona: model.zona!.id,
-      sensoresAtivos,
-      emergencias,
+      zone: model.zona!.id,
+      active_sensors: sensoresAtivos,
+      emergencies: emergencias,
     }
   }
 }
