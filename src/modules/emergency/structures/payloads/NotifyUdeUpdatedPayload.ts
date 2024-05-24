@@ -13,6 +13,7 @@ class EmergenciaPayload {
   [key: string]: {
     thresholdMinimo: number | null
     thresholdMaximo: number | null
+    taxaVariacaoMinima: number
   }
 }
 
@@ -55,6 +56,7 @@ export class NotifyUdeUpdatedPayload {
             mAcc[mKey] = {
               thresholdMinimo: monitoramento.thresholdMinimo || null,
               thresholdMaximo: monitoramento.thresholdMaximo || null,
+              taxaVariacaoMinima: monitoramento.taxaVariacaoMinima,
             }
             return mAcc
           }, {} as EmergenciaPayload)

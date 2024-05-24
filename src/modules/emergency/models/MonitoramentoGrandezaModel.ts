@@ -61,6 +61,15 @@ export class MonitoramentoGrandezaModel extends SoftDeleteBaseModel {
   })
   thresholdMaximo?: number
 
+  @Column({
+    name: 'taxa_variacao_minima',
+    type: 'decimal',
+    precision: 8,
+    scale: 3,
+    transformer: new ColumnNumericTransformer()
+  })
+  taxaVariacaoMinima: number
+
   @Column({ type: 'boolean', nullable: true })
   ativo?: Boolean
 }

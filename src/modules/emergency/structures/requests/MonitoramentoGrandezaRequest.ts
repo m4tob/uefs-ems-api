@@ -32,6 +32,11 @@ export class MonitoramentoGrandezaRequest {
   @ApiProperty({ description: 'Threshold Máximo', required: false, example: 60.0 })
   thresholdMaximo?: number
 
+  @IsDefined()
+  @IsNumber({ allowNaN: false, maxDecimalPlaces: 3 })
+  @ApiProperty({ description: 'Taxa de Variação para considerar um novo valor monitorado', example: 0.01 })
+  taxaVariacaoMinima: number
+
   @IsOptional()
   @IsBoolean()
   @ApiProperty({ description: 'Indica se a detecção está ativa', example: true })
