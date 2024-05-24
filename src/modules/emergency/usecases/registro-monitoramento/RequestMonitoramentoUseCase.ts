@@ -53,7 +53,7 @@ export class RequestMonitoramentoUseCase {
     const client = connect(envs.MQTT_BROKER);
     client.on("connect", async () => {
       for (let i = 0; i < requestCount; i++) {
-        console.log(`(${i + 1}/${requestCount}) Publish request data to topics: \n\t\t- ${topics.join('\n\t\t- ')}`)
+        console.log(`(${i + 1}/${requestCount}) Publish message to topics: \n\t\t- ${topics.join('\n\t\t- ')}`)
         console.log(util.inspect(payload, { showHidden: false, depth: null, colors: true }))
         for (let topic of topics) {
           try {

@@ -12,15 +12,13 @@ import { UdeModel } from '@/emergency/models/UdeModel'
 import { ZonaModel } from '@/emergency/models/ZonaModel'
 import { RegistroMonitoramentoModel } from '@/emergency/models/RegistroMonitoramentoModel'
 
+import DatabaseConfig from '@/database/config/DatabaseConfig'
+
 export default {
-  type: 'mysql',
+  ...DatabaseConfig,
+
   synchronize: false,
   migrationsRun: false,
-  host: envs.DB_HOSTNAME,
-  port: envs.DB_PORT,
-  username: envs.DB_USERNAME,
-  password: envs.DB_PASSWORD,
-  database: envs.DB_DATABASE,
   extra: {
     connectionLimit: envs.DB_CONNECTION_LIMIT,
   },

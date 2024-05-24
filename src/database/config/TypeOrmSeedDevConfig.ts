@@ -6,12 +6,13 @@ dotenv.config()
 import { join } from 'path'
 import { DataSource, DataSourceOptions } from 'typeorm'
 
+import DatabaseConfig from '@/database/config/DatabaseConfig'
 import TypeOrmConfig from '@/database/config/TypeOrmConfig'
 
 export default new DataSource({
   ...(TypeOrmConfig as DataSourceOptions),
   migrationsTableName: 'Seed',
   migrations: [
-    join(__dirname, '..', 'seedsDev', '*{.ts,.js}')
+    join(__dirname, '..', 'seedsDev', DatabaseConfig.type, '*{.ts,.js}')
   ],
 })

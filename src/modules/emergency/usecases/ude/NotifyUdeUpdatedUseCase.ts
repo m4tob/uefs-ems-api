@@ -7,6 +7,8 @@ import { UdeRepository } from '@/emergency/repositories/UdeRepository';
 import { NotifyUdeUpdatedPayload } from '@/emergency/structures/payloads/NotifyUdeUpdatedPayload';
 import { connect } from "mqtt"
 
+const util = require('util')
+
 @Injectable()
 export class NotifyUdeUpdatedUseCase {
   constructor(
@@ -24,10 +26,11 @@ export class NotifyUdeUpdatedUseCase {
 
       client.on("connect", async () => {
         const payload = NotifyUdeUpdatedPayload.parse(model);
-        await client.publish(envs.MQTT_TOPIC_UPDATE_UDE, JSON.stringify(payload));
 
-        const util = require('util')
+        console.log('Publish message to topic:', envs.MQTT_TOPIC_UPDATE_UDE)
         console.log(util.inspect(payload, { showHidden: false, depth: null, colors: true }))
+
+        await client.publish(envs.MQTT_TOPIC_UPDATE_UDE, JSON.stringify(payload));
 
         resolve(payload);
       });

@@ -17,6 +17,7 @@ import { Response as Res } from 'express'
 
 @Controller({ version: '1', path: 'usuarios' })
 @ApiTags('usuarios')
+@ApiBearerAuth('Role Access Token')
 export class AccountController {
   constructor(
     private readonly accountFacade: AccountFacade

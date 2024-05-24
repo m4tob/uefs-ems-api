@@ -2,7 +2,6 @@
 
 # Setup Database
 echo 'SETUP DATABASE';
-# npm run database:setup;
 
 # Migrations
 echo 'RUN MIGRATIONS';

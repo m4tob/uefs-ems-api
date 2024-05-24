@@ -4,7 +4,8 @@ export class CreateDeteccaoEmergenciaTable1715747072351 implements MigrationInte
     name = 'CreateDeteccaoEmergenciaTable1715747072351'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query('CREATE TABLE `monitoramento_grandeza` (' +
+        await queryRunner.query(
+            'CREATE TABLE `monitoramento_grandeza` (' +
             '  `id` int NOT NULL AUTO_INCREMENT, ' +
             '  `deteccao_emergencia_id` int NOT NULL, ' +
             '  `sensor_id` int NOT NULL, ' +
@@ -20,7 +21,8 @@ export class CreateDeteccaoEmergenciaTable1715747072351 implements MigrationInte
             '  PRIMARY KEY (`id`)' +
             ') ENGINE=InnoDB'
         );
-        await queryRunner.query('CREATE TABLE `deteccao_emergencia` (' +
+        await queryRunner.query(
+            'CREATE TABLE `deteccao_emergencia` (' +
             '  `id` int NOT NULL AUTO_INCREMENT, ' +
             '  `ude_id` int NOT NULL, ' +
             '  `tipo_emergencia_id` int NOT NULL, ' +

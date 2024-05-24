@@ -4,7 +4,8 @@ export class CreateSensorTable1714655309252 implements MigrationInterface {
   name = 'CreateSensorTable1714655309252'
 
   public async up(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query('CREATE TABLE `sensor` (' +
+    await queryRunner.query(
+      'CREATE TABLE `sensor` (' +
       '  `id` int NOT NULL AUTO_INCREMENT, ' +
       '  `modelo` varchar(50) NOT NULL, ' +
       '  `descricao` varchar(255) NULL, ' +
@@ -18,7 +19,8 @@ export class CreateSensorTable1714655309252 implements MigrationInterface {
       ') ENGINE=InnoDB'
     );
 
-    await queryRunner.query('CREATE TABLE `especificacao_grandeza` (' +
+    await queryRunner.query(
+      'CREATE TABLE `especificacao_grandeza` (' +
       '  `id` int NOT NULL AUTO_INCREMENT, ' +
       '  `sensor_id` int NOT NULL, ' +
       '  `grandeza_id` int NOT NULL, ' +

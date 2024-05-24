@@ -4,7 +4,8 @@ export class CreateUdeTable1714742820043 implements MigrationInterface {
   name = 'CreateUdeTable1714742820043'
 
   public async up(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query('CREATE TABLE `ude` (' +
+    await queryRunner.query(
+      'CREATE TABLE `ude` (' +
       '  `id` int NOT NULL AUTO_INCREMENT, ' +
       '  `tipo` varchar(5) NOT NULL, ' +
       '  `label` varchar(50) NOT NULL, ' +

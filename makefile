@@ -46,24 +46,25 @@ clean: down
 	sudo rm -rf node_modules/
 	sudo rm -rf coverage/
 
-migration.recreatedb:
+migration.drop.mysql:
 	docker exec -it ${CONTAINER_MYSQL} mysql -uroot -ppassword -e "DROP DATABASE IF EXISTS ${DATABASE}; CREATE DATABASE ${DATABASE};"
-	make migration.run
-	make seed.run
+
+migration.drop.sqlite:
+	rm -rf ems_db.sqlite
 
 migration.generate:
-	DB_HOSTNAME=localhost npm run migration:generate ./src/database/migrations/$(name)
+	npm run migration:generate ./src/database/migrations/$(name)
 migration.run:
-	DB_HOSTNAME=localhost npm run migration:run
+	npm run migration:run
 migration.revert:
-	DB_HOSTNAME=localhost npm run migration:revert
+	npm run migration:revert
 
 seed.generate:
-	DB_HOSTNAME=localhost npm run seed:generate ./src/database/seeds/$(name)
+	npm run seed:generate ./src/database/seeds/$(name)
 seed.run:
-	DB_HOSTNAME=localhost npm run seed:run
+	npm run seed:run
 seed.revert:
-	DB_HOSTNAME=localhost npm run seed:revert
+	npm run seed:revert
 
 bash:
 	docker exec -it ${CONTAINER_BACKEND} /bin/bash

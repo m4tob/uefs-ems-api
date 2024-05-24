@@ -46,6 +46,6 @@ export class RegistroMonitoramentoModel extends SoftDeleteBaseModel {
   })
   valor: number
 
-  @Column({ name: 'data_coleta', type: 'timestamp' })
+  @Column({ name: 'data_coleta' })
   dataColeta: Date
 }
