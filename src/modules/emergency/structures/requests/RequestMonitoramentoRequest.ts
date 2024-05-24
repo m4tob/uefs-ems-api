@@ -22,12 +22,4 @@ export class RequestMonitoramentoRequest {
   @IsArray()
   @ApiProperty({ description: 'Identificadores das Grandezas do registro', required: false, type: [GrandezaIdRequest] })
   grandezas?: GrandezaIdRequest[]
-
-  @IsOptional()
-  @ApiProperty({ description: 'Tempo total de monitoramento em segundos', required: false, example: 60 })
-  totalTime: number = 60
-
-  @IsOptional()
-  @ApiProperty({ description: 'Tempo de atraso entre as leituras em segundos', required: false, example: 10 })
-  delayTime: number = 10
 }

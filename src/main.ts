@@ -17,10 +17,11 @@ import { AllExceptionFilter } from '@/core/helpers/AllExceptionFilter'
 import { ResponseTransformInterceptor } from '@/core/helpers/ResponseTransformInterceptor'
 
 import { SentryConfig } from '@/config/SentryConfig'
+import { MonitoramentoFacade } from '@/emergency/services/MonitoramentoFacade'
+import { NovoRegistroMonitoramentoPayload } from '@/emergency/structures/payloads/NovoRegistroMonitoramentoPayload'
 import * as bodyParser from 'body-parser'
 import helmet from 'helmet'
 import { initializeTransactionalContext } from 'typeorm-transactional'
-import { MonitoramentoFacade } from '@/emergency/services/MonitoramentoFacade'
 
 const configureSwagger = (app: INestApplication) => {
   const swaggerOptions = new DocumentBuilder()
@@ -55,7 +56,7 @@ const configureMqtt = (app: INestApplication) => {
   client.on("message", (topic, message) => {
     if (topic === envs.MQTT_TOPIC_RESPONSE_DATA) {
       try {
-        const payload = JSON.parse(message.toString())
+        const payload: NovoRegistroMonitoramentoPayload = JSON.parse(message.toString())
         monitoramentoFacade.process(payload)
       } catch (error) {
         console.log(`Error processing message to topic: ${envs.MQTT_TOPIC_RESPONSE_DATA}`)

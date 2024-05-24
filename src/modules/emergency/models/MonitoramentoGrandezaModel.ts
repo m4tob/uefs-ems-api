@@ -62,6 +62,13 @@ export class MonitoramentoGrandezaModel extends SoftDeleteBaseModel {
   thresholdMaximo?: number
 
   @Column({
+    name: 'intervalo_amostragem',
+    type: 'integer',
+    transformer: new ColumnNumericTransformer()
+  })
+  intervaloAmostragem: number
+
+  @Column({
     name: 'taxa_variacao_minima',
     type: 'decimal',
     precision: 8,

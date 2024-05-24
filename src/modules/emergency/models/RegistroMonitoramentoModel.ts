@@ -5,6 +5,7 @@ import { ColumnNumericTransformer } from '@/core/repositories/ColumnNumericTrans
 import { GrandezaModel } from '@/emergency/models/GrandezaModel'
 import { SensorModel } from '@/emergency/models/SensorModel'
 import { UdeModel } from '@/emergency/models/UdeModel'
+import { RegistroMonitoramentoBrutoModel } from '@/emergency/models/RegistroMonitoramentoBrutoModel'
 
 @Entity('registro_monitoramento')
 export class RegistroMonitoramentoModel extends SoftDeleteBaseModel {
@@ -15,6 +16,13 @@ export class RegistroMonitoramentoModel extends SoftDeleteBaseModel {
 
   @PrimaryGeneratedColumn()
   id: number
+
+  @Column({ name: 'registro_bruto_id' })
+  registroBrutoId: number
+
+  @ManyToOne(() => RegistroMonitoramentoBrutoModel, (model) => model.id)
+  @JoinColumn({ name: 'registro_bruto_id' })
+  registroBruto?: RegistroMonitoramentoBrutoModel
 
   @Column({ name: 'ude_id' })
   udeId: number
@@ -38,7 +46,6 @@ export class RegistroMonitoramentoModel extends SoftDeleteBaseModel {
   grandeza?: GrandezaModel
 
   @Column({
-    name: 'valor',
     type: 'decimal',
     precision: 8,
     scale: 3,

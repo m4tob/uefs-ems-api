@@ -35,7 +35,7 @@ export class MonitoramentoGrandezaRequest {
   @IsDefined()
   @IsNumber({ allowNaN: false })
   @ApiProperty({ description: 'Taxa de Amostragem em segundos do sensoriamento', example: 5 })
-  taxaAmostragem: number
+  intervaloAmostragem: number
 
   @IsDefined()
   @IsNumber({ allowNaN: false, maxDecimalPlaces: 3 })

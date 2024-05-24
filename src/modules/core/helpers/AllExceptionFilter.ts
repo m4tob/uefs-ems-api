@@ -23,7 +23,7 @@ export class AllExceptionFilter implements ExceptionFilter {
 
     if (!(exception instanceof HttpException)) {
       Sentry.captureException(exception)
-      console.log(exception)
+      console.error(exception)
     }
 
     response.status(statusCode).json({ statusCode, errors })

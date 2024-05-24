@@ -11,12 +11,14 @@ import { DeteccaoEmergenciaModel } from '@/emergency/models/DeteccaoEmergenciaMo
 import { EspecificacaoGrandezaModel } from '@/emergency/models/EspecificacaoGrandezaModel'
 import { GrandezaModel } from '@/emergency/models/GrandezaModel'
 import { MonitoramentoGrandezaModel } from '@/emergency/models/MonitoramentoGrandezaModel'
+import { RegistroMonitoramentoBrutoModel } from '@/emergency/models/RegistroMonitoramentoBrutoModel'
 import { RegistroMonitoramentoModel } from '@/emergency/models/RegistroMonitoramentoModel'
 import { SensorModel } from '@/emergency/models/SensorModel'
 import { TipoEmergenciaModel } from '@/emergency/models/TipoEmergenciaModel'
 import { UdeModel } from '@/emergency/models/UdeModel'
 import { ZonaModel } from '@/emergency/models/ZonaModel'
 import { GrandezaRepository } from '@/emergency/repositories/GrandezaRepository'
+import { RegistroMonitoramentoBrutoRepository } from '@/emergency/repositories/RegistroMonitoramentoBrutoRepository'
 import { RegistroMonitoramentoRepository } from '@/emergency/repositories/RegistroMonitoramentoRepository'
 import { SensorRepository } from '@/emergency/repositories/SensorRepository'
 import { TipoEmergenciaRepository } from '@/emergency/repositories/TipoEmergenciaRepository'
@@ -69,6 +71,7 @@ import { UpdateZonaUseCase } from '@/emergency/usecases/zona/UpdateZonaUseCase'
       UdeModel,
       DeteccaoEmergenciaModel,
       MonitoramentoGrandezaModel,
+      RegistroMonitoramentoBrutoModel,
       RegistroMonitoramentoModel,
     ]),
   ],
@@ -95,6 +98,7 @@ import { UpdateZonaUseCase } from '@/emergency/usecases/zona/UpdateZonaUseCase'
     SensorRepository,
     ZonaRepository,
     UdeRepository,
+    RegistroMonitoramentoBrutoRepository,
     RegistroMonitoramentoRepository,
 
     // Usecases

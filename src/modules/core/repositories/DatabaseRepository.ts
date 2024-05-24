@@ -102,7 +102,7 @@ export abstract class DatabaseRepository<MODEL_TYPE extends ObjectLiteral, ID_TY
   async findManyById (ids: ID_TYPE[], relations?: (Relation |string)[]): Promise<MODEL_TYPE[]> {
     const query = this.repository
       .createQueryBuilder(this.table)
-      .where('id IN (:...ids)', { ids })
+      .where(`${this.table}.id IN (:...ids)`, { ids })
 
     this.addRelations(query, relations)
 
@@ -130,7 +130,7 @@ export abstract class DatabaseRepository<MODEL_TYPE extends ObjectLiteral, ID_TY
     return this.repository
       .createQueryBuilder(this.table)
       .delete()
-      .where("id = :id", { id })
+      .where(`${this.table}.id = :id`, { id })
       .execute();
   }
 
@@ -138,7 +138,7 @@ export abstract class DatabaseRepository<MODEL_TYPE extends ObjectLiteral, ID_TY
     return this.repository
       .createQueryBuilder(this.table)
       .delete()
-      .where('id IN (:...ids)', { ids })
+      .where(`${this.table}.id IN (:...ids)`, { ids })
       .execute();
   }
 
@@ -146,7 +146,7 @@ export abstract class DatabaseRepository<MODEL_TYPE extends ObjectLiteral, ID_TY
     return this.repository
       .createQueryBuilder(this.table)
       .softDelete()
-      .where("id = :id", { id })
+      .where(`${this.table}.id = :id`, { id })
       .execute();
   }
 
@@ -154,7 +154,7 @@ export abstract class DatabaseRepository<MODEL_TYPE extends ObjectLiteral, ID_TY
     return this.repository
       .createQueryBuilder(this.table)
       .softDelete()
-      .where('id IN (:...ids)', { ids })
+      .where(`${this.table}.id IN (:...ids)`, { ids })
       .execute();
   }
 
@@ -162,7 +162,7 @@ export abstract class DatabaseRepository<MODEL_TYPE extends ObjectLiteral, ID_TY
     return this.repository
       .createQueryBuilder(this.table)
       .restore()
-      .where("id = :id", { id })
+      .where(`${this.table}.id = :id`, { id })
       .execute();
   }
 
@@ -170,7 +170,7 @@ export abstract class DatabaseRepository<MODEL_TYPE extends ObjectLiteral, ID_TY
     return this.repository
       .createQueryBuilder(this.table)
       .restore()
-      .where('id IN (:...ids)', { ids })
+      .where(`${this.table}.id IN (:...ids)`, { ids })
       .execute();
   }
 }

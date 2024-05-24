@@ -12,9 +12,10 @@ export class CreateDeteccaoEmergenciaTable1715747072351 implements MigrationInte
             '  "grandeza_id" integer NOT NULL, ' +
             '  "threshold_minimo" decimal(8,3), ' +
             '  "threshold_maximo" decimal(8,3), ' +
-            '  "taxa_amostragem" integer NOT NULL, ' +
+            '  "intervalo_amostragem" integer NOT NULL, ' +
             '  "taxa_variacao_minima" decimal(8,3) NOT NULL, ' +
             '  "ativo" boolean, ' +
+
             '  "created_at" datetime NOT NULL DEFAULT (datetime(\'now\')), ' +
             '  "updated_at" datetime NOT NULL DEFAULT (datetime(\'now\')), ' +
             '  "deleted_at" datetime, ' +

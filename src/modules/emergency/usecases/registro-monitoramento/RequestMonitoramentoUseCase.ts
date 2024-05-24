@@ -18,8 +18,7 @@ export class RequestMonitoramentoUseCase {
   ) { }
 
   async execute(input: RequestMonitoramentoRequest): Promise<void> {
-    const { zona: zonaId, tipoEmergencia: tipoEmergenciaId, ude: udeId, grandezas: grandezasIds, totalTime, delayTime } = input
-    const requestCount = Math.round(totalTime / delayTime)
+    const { zona: zonaId, tipoEmergencia: tipoEmergenciaId, ude: udeId, grandezas: grandezasIds } = input
 
     let zonaTopicSuffix = zonaId ? [`/zona/${zonaId.id}`] : undefined
     let devicesTopicSuffix: string[] | undefined = udeId ? [`/device/${udeId.id}`] : undefined
@@ -52,25 +51,19 @@ export class RequestMonitoramentoUseCase {
 
     const client = connect(envs.MQTT_BROKER);
     client.on("connect", async () => {
-      for (let i = 0; i < requestCount; i++) {
-        console.log(`(${i + 1}/${requestCount}) Publish message to topics: \n\t\t- ${topics.join('\n\t\t- ')}`)
-        console.log(util.inspect(payload, { showHidden: false, depth: null, colors: true }))
-        for (let topic of topics) {
-          try {
-            await client.publish(topic, JSON.stringify(payload));
-          } catch (error) {
-            console.log(error)
-          }
+      console.log(`Publish message to topics: \n\t\t- ${topics.join('\n\t\t- ')}`)
+      console.log(util.inspect(payload, { showHidden: false, depth: null, colors: true }))
+      for (let topic of topics) {
+        try {
+          await client.publish(topic, JSON.stringify(payload));
+        } catch (error) {
+          console.error(error)
         }
-        if (i < requestCount - 1) {
-          console.log(`Waiting ${delayTime} seconds to next request...`)
-        }
-        await new Promise(resolve => setTimeout(resolve, delayTime * 1000))
       }
     });
 
     client.on("error", async (error) => {
-      console.log(error)
+      console.error(error)
     });
   }
 }

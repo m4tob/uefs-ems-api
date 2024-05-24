@@ -4,8 +4,8 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 
 import { DatabaseRepository } from '@/core/repositories/DatabaseRepository'
-import { RegistroMonitoramentoModel } from '@/emergency/models/RegistroMonitoramentoModel'
 import { RegistrosMonitoramentoSearchFilters } from '@/emergency/structures/queries/RegistrosMonitoramentoSearchFilters'
+import { RegistroMonitoramentoModel } from '@/emergency/models/RegistroMonitoramentoModel'
 
 @Injectable()
 export class RegistroMonitoramentoRepository extends DatabaseRepository<RegistroMonitoramentoModel, number> {

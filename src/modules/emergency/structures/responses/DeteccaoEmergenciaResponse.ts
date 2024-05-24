@@ -35,7 +35,7 @@ export class MonitoramentoGrandezaResponse {
   @IsDefined()
   @IsNumber({ allowNaN: false })
   @ApiProperty({ description: 'Taxa de Amostragem em segundos do sensoriamento', example: 5 })
-  taxaAmostragem: number
+  intervaloAmostragem: number
 
   @IsDefined()
   @IsNumber({ allowNaN: false, maxDecimalPlaces: 3 })
@@ -54,7 +54,7 @@ export class MonitoramentoGrandezaResponse {
       grandeza: GrandezaResponse.toResponse(model.grandeza!!),
       thresholdMinimo: model.thresholdMinimo,
       thresholdMaximo: model.thresholdMaximo,
-      taxaAmostragem: model.taxaAmostragem,
+      intervaloAmostragem: model.intervaloAmostragem,
       taxaVariacaoMinima: model.taxaVariacaoMinima,
       ativo: model.ativo,
     } as any

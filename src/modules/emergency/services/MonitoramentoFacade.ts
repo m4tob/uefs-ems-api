@@ -1,3 +1,4 @@
+import { NovoRegistroMonitoramentoPayload } from '@/emergency/structures/payloads/NovoRegistroMonitoramentoPayload'
 import { ListRegistrosMonitoramentoRequest } from '@/emergency/structures/requests/ListRegistrosMonitoramentoRequest'
 import { RequestMonitoramentoRequest } from '@/emergency/structures/requests/RequestMonitoramentoRequest'
 import { RegistroMonitoramentoResponse } from '@/emergency/structures/responses/RegistroMonitoramentoResponse'
@@ -18,7 +19,7 @@ export class MonitoramentoFacade {
     return this.requestMonitoramentoUseCase.execute(input)
   }
 
-  process(input: any): Promise<void> {
+  process(input: NovoRegistroMonitoramentoPayload): Promise<void> {
     return this.processRegistroMonitoramentoUseCase.execute(input)
   }
 
